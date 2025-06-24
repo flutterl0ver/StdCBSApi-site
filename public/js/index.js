@@ -111,6 +111,7 @@ function ChangeInfants(newValue) {
 }
 
 function SwitchAirports(id, display) {
+    return;
     let airports = document.getElementById('airports_' + id);
 
     if(display !== 'block' || airports.childElementCount > 0)
