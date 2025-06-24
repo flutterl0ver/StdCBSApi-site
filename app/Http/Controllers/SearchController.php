@@ -68,10 +68,4 @@ class SearchController extends Controller
 
         return $searchService->search('ttbooking', $data);
     }
-
-    public function searchAirports(Request $request, SearchService $searchService) : array
-    {
-        $term = $request->query('term');
-        return $searchService->searchAirports($term);
-    }
 }

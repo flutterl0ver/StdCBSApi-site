@@ -24,22 +24,14 @@
     <div class="row">
         <div class="from">
             <label for="from">Откуда</label>
-            <input type="text" name="from" id="from" class="textinput" autocomplete="off" onfocusin="SwitchAirports('from', 'block')" onfocusout="SwitchAirports('from', 'none')" onchange="SearchAirports('from')" value="{{ old('from') }}">
-            <div class="airports" id="airports_from">
-                <div class="search-row">
-                    <div class="code">MOW</div>
-                    <t>Москва</t><br>
-                    <t class="country">Россия</t>
-                </div>
-                <div class="search-row">aaa</div>
-                <div class="search-row">aaa</div>
-                <div class="search-row">aaa</div>
-            </div>
+            <input type="text" name="from" id="from" class="textinput" autocomplete="off" onfocusin="SwitchAirports('from', 'block')" onfocusout="SwitchAirports('from', 'none')" oninput="SearchAirports('from')" value="{{ old('from') }}">
+            <div class="airports" id="airports_from"></div>
         </div>
         <button class="switch" type="button" onclick="SwapPlaces()"></button>
         <div class="to">
             <label for="to">Куда</label>
-            <input type="text" name="to" id="to" class="textinput" autocomplete="off" value="{{ old('to') }}">
+            <input type="text" name="to" id="to" class="textinput" autocomplete="off" onfocusin="SwitchAirports('to', 'block')" onfocusout="SwitchAirports('to', 'none')" oninput="SearchAirports('to')" value="{{ old('to') }}">
+            <div class="airports" id="airports_to"></div>
         </div>
         <div class="date_to">
             <label for="date_to">Дата вылета</label>

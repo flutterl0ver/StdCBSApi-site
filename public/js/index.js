@@ -91,26 +91,42 @@ function ChangeInfants(newValue) {
 }
 
 function SwitchAirports(id, display) {
-    return;
     let airports = document.getElementById('airports_' + id);
 
-    if(display !== 'block' || airports.childElementCount > 0)
-        airports.style.display = display;
+    airports.style.display = display;
 }
 
 function SearchAirports(id) {
+    document.getElementById('airports_' + id).innerHTML = '';
     let search = document.getElementById(id).value;
     $.ajax({
         url: '/search-airports',
         method: 'get',
         data: { term: search },
         success: function(data) {
-            console.log(data);
+            ShowAirports(id, data);
         }
     });
+}
+
+function ShowAirports(id, airports) {
+    let airportsText = '';
+    for(let i = 0; i < airports.length; i++)
+    {
+        let airport = airports[i];
+        let airportName = airport['city'] + '(' + airport['code'] + ')';
+        airportsText += '<div class="search-row" onmousedown="SetAirport(\'' + id + '\', \'' + airportName +
+            '\')"><div class="code">' + airport['code'] +
+            '</div><t>' + airport['city'] + '</t><br><t class="country">' + airport['country'] + '</t></div>';
+    }
+    document.getElementById('airports_' + id).innerHTML = airportsText;
+}
+
+function SetAirport(id, airport) {
+    document.getElementById(id).value = airport;
+    document.getElementById('airports_' + id).innerHTML = '';
 }
 
 let adults = 1;
 let children = 0;
 let infants = 0;
-renderjson.set_show_to_level(5);
