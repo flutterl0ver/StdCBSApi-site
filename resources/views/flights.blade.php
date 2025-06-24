@@ -10,6 +10,10 @@
 </head>
 <body>
 @if (session('response') && session('response')['respond']['token'] != '')
+    <script>
+        const response = JSON.parse('{{ json_encode(session('response'), JSON_UNESCAPED_UNICODE) }}');
+        const token = '{{ session('response')['respond']['token'] }}';
+    </script>
     <h3>Результаты поиска</h3>
     <div class="table" id="tableDiv">
         <?php
@@ -235,8 +239,8 @@
                             @endif
                         </table>
                         <div>
-                            <button class="sendreq" onclick="OpenJson(SendFlightRequest({{ $i }}, 'FLIGHT_SUB_CLASSES'))">Запрос подклассов</button>
-                            <button class="sendreq" onclick="OpenJson(SendFlightRequest({{ $i }}, 'FLIGHT_UPT'))">Получить УПТ</button>
+                            <button class="sendreq" onclick="SendFlightRequest({{ $i }}, 'FLIGHT_SUB_CLASSES')">Запрос подклассов</button>
+                            <button class="sendreq" onclick="SendFlightRequest({{ $i }}, 'FLIGHT_UPT')">Получить УПТ</button>
                             <button class="select right" onclick="SendSelectRequest({{ $i }})">Отправить запрос выбора</button>
                         </div>
                     </td>

@@ -5,7 +5,7 @@ function GetFlightData(flightId) {
 function GetFlightRequest(flightId, command) {
     let flightData = GetFlightData(flightId);
     let request = {
-        "token": searchToken,
+        "token": token,
         "flightsGroup": {
             "flightGroup": [
                 {
@@ -39,33 +39,6 @@ function GetFlightRequest(flightId, command) {
     return request;
 }
 
-function OpenFlightRequest(flightId, command) {
-    const request = GetFlightRequest(flightId, command);
-    $.post('/request/flight',
-        { 'data': JSON.stringify(request) },
-        function(data)
-        {
-            OpenJson(data);
-        },
-        'json')
-
-    return 'Информация загружается...';
-}
-
-function GetSearchRequest(response) {
-    let token = response['respond']['token'];
-
-    $.post('/request/searchresult',
-        { 'data': JSON.stringify({
-                'token': token })
-        },
-        function(data) {
-            OpenJson({ 'request': data, 'response': response });
-        },
-        'json');
-    return 'Информация загружается...';
-}
-
 function SwitchMoreInfo(flightId) {
     let cell = document.getElementById('moreinfo' + flightId);
     if(cell.style.display === 'none')
@@ -80,30 +53,17 @@ function SwitchMoreInfo(flightId) {
 
 function SendFlightRequest(flightId, command) {
     const request = GetFlightRequest(flightId, command);
-    $.post('/request/flight',
+    $.post('/get-flight-data',
         { 'data': JSON.stringify(request) },
         function(data)
         {
-            OpenJson({ 'request':  data, 'response': '!#Информация загружается...'});
-            $.post('/get-flight-data',
-                { 'data': JSON.stringify(request) },
-                function(response)
-                {
-                    OpenJson({ 'request': data, 'response': response})
-
-                },
-                'json');
+            console.log(data);
         },
-        'json')
-
-    return 'Информация загружается...';
+        'json');
 }
 
 function SendSelectRequest(flightId) {
-    document.getElementById('tableDiv').style.display = 'none';
-    const jsonField = document.getElementById('selectResponse');
-    jsonField.style.display = 'block';
-    jsonField.innerHTML = '<t class="jsonMsg">Информация загружается...</t>';
+    document.getElementById('tableDiv').style.display = 'none'
 
     const request = GetFlightRequest(flightId, 'SELECTFLIGHT');
     $.post('/request/flight',
@@ -120,9 +80,4 @@ function SendSelectRequest(flightId) {
                 'json');
         },
         'json')
-}
-
-function CloseSelectRequest() {
-    document.getElementById('tableDiv').style.display = 'block';
-    document.getElementById('selectResponse').style.display = 'none';
 }

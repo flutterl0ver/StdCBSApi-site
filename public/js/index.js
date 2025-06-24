@@ -1,23 +1,3 @@
-function GetJson()  {
-    const hasDateFrom = document.getElementById('hasDateFrom').value === 'true';
-
-    $.post('/request/searchflights',
-        { 'data': JSON.stringify({
-            'from': document.getElementById('from').value,
-            'to': document.getElementById('to').value,
-            'date_to': document.getElementById('date_to').value,
-            'date_from': hasDateFrom? document.getElementById('date_from').value : null,
-            'adults': adults,
-            'children': children,
-            'infants': infants })
-        },
-        function(data) {
-            OpenJson(data);
-        },
-        'json');
-    return 'Информация загружается...';
-}
-
 function RecalculateRadioButtons() {
     const maxAdults = MAX_PEOPLE - children - infants;
     const maxChildren = MAX_PEOPLE - adults - infants;
