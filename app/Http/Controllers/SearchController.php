@@ -27,9 +27,28 @@ class SearchController extends Controller
 
         $hasDateFrom = $request->post('hasDateFrom') == 'true';
 
+        $from = trim($request->post('from'));
+        $to = trim($request->post('to'));
+
+        try {
+            $p = strpos($from, '(');
+            $from_code = substr($from, $p + 1, strlen($from) - $p - 2);
+            $from = substr($from, 0, $p);
+
+            $p = strpos($to, '(');
+            $to_code = substr($to, $p + 1, strlen($to) - $p - 2);
+            $to = substr($to, 0, $p);
+        }
+        catch (\Exception)
+        {
+            return redirect('/')->withInput();
+        }
+
         $data = new SearchData(
-            $request->post('from'),
-            $request->post('to'),
+            $from,
+            $from_code,
+            $to,
+            $to_code,
             $request->post('date_to'),
             $hasDateFrom ? $request->post('date_from') : null,
             $request->post('adults'),

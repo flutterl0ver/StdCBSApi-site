@@ -7,22 +7,26 @@ use App\Interfaces\IApiRequestData;
 class SearchData implements IApiRequestData
 {
     private string $from;
+    private string $from_code;
     private string $to;
+    private string $to_code;
     private string $date_to;
     private ?string $date_from;
     private int $adults;
     private int $children;
     private int $infants;
 
-    public function __construct(string $from, string $to, string $date_to, ?string $date_from, int $adults, int $children, int $babies)
+    public function __construct(string $from, string $from_code, string $to, string $to_code, string $date_to, ?string $date_from, int $adults, int $children, int $infants)
     {
         $this->from = $from;
+        $this->from_code = $from_code;
         $this->to = $to;
+        $this->to_code = $to_code;
         $this->date_to = $date_to;
         $this->date_from = $date_from;
         $this->adults = $adults;
         $this->children = $children;
-        $this->infants = $babies;
+        $this->infants = $infants;
     }
 
     public function toArray() : array
@@ -32,12 +36,12 @@ class SearchData implements IApiRequestData
                 [
                     'date' => $this->date_to,
                     'locationBegin' => [
-                        'code' => $this->from,
-                        'name' => ''
+                        'code' => $this->from_code,
+                        'name' => $this->from
                     ],
                     'locationEnd' => [
-                        'code' => $this->to,
-                        'name' => ''
+                        'code' => $this->to_code,
+                        'name' => $this->to
                     ]
                 ]
             ],
@@ -126,5 +130,15 @@ class SearchData implements IApiRequestData
     public function getInfants(): int
     {
         return $this->infants;
+    }
+
+    public function getToCode(): string
+    {
+        return $this->to_code;
+    }
+
+    public function getFromCode(): string
+    {
+        return $this->from_code;
     }
 }

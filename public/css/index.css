@@ -28,6 +28,8 @@ div.row div.from {
     position: relative;
 }
 div.row div.to {
+    padding: 0;
+    margin: 0 30px;
     width: 25%;
     position: relative;
 }
