@@ -1,0 +1,180 @@
+div.respond {
+    margin: auto;
+    width: max-content;
+    border: solid lightgrey 1px;
+    border-radius: 5px;
+    background-color: white;
+    height: auto;
+    font-size: 22px;
+    padding: 20px;
+    white-space: pre;
+}
+div.token {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+input.textinput,
+button.date_from {
+    width: calc(100% - 20px);
+    padding: 0 10px !important;
+}
+div.row div {
+    padding: 0 30px;
+}
+div.row div.from {
+    padding: 0;
+    width: 25%;
+    position: relative;
+}
+div.row div.to {
+    width: 25%;
+    position: relative;
+}
+div.row div.date_to {
+    padding-right: 40px;
+    width: 180px;
+}
+div.row div.date_from {
+    padding: 0;
+    width: 180px;
+}
+div.row .textinput {
+    margin-top: 10px;
+    padding: 1px 2px;
+}
+div.row button.date_from {
+    margin-top: auto;
+    padding-bottom: 0;
+    width: 180px;
+    height: 43.6px;
+    background-color: white;
+    transition-duration: 0.2s;
+    border-color: dodgerblue;
+    font-size: 20px;
+    color: dodgerblue;
+}
+button.closeButton.date_from_close {
+    position: static;
+    height: 12px;
+}
+div.row button.date_from:hover {
+    cursor: pointer;
+    background-color: dodgerblue;
+    color: white;
+}
+div.row {
+    margin-bottom: 20px;
+}
+div.row.fieldsets div {
+    padding-left: 0;
+    width: 40%;
+}
+div.row.fieldsets button {
+    margin: 10px 2px 0;
+}
+div.row.fieldsets span label {
+    position: relative;
+    top: -15px;
+    left: -21px;
+}
+button.radio {
+    width: 30px;
+    aspect-ratio: 1;
+    border-radius: 30px;
+    border-width: 0;
+    background-color: white;
+    transition-duration: 0.3s;
+    font-size: 20px;
+}
+button.radio:hover {
+    cursor: pointer;
+    background-color: lightgrey;
+}
+button.radio.active {
+    background-color: dodgerblue;
+    color: white;
+}
+div.row button.switch {
+    border: none;
+    background-color: white;
+    background-image: url('https://cdn-icons-png.flaticon.com/128/15049/15049734.png');
+    background-size: cover;
+    width: 45px;
+    aspect-ratio: 1;
+    margin-top: auto;
+    padding: 1px 2px;
+    margin-left: 20px;
+}
+div.row button.switch:hover {
+    cursor: pointer;
+}
+div.submit {
+    text-align: center;
+    width: max-content;
+    height: max-content;
+    float: right;
+}
+div.row:last-of-type {
+    margin: 0;
+    justify-content: space-between;
+}
+div.row:last-of-type div {
+    padding: 0;
+}
+div.airports {
+    display: none;
+    position: absolute;
+    width: 100%;
+    padding: 0 !important;
+    height: max-content;
+    background-color: white;
+    border: solid lightgrey 1px;
+    box-shadow: lightgrey 0 0 10px 1px;
+}
+div.search-row {
+    position: relative;
+    padding: 5px !important;
+    background-color: white;
+    height: max-content;
+    font-size: 17px;
+    line-height: 14px;
+}
+div.search-row:nth-child(even) {
+    background-color: #EFF4F9;
+}
+div.search-row:hover {
+    cursor: pointer;
+    background-color: #D1ECFF;
+}
+div.search-row t.country {
+    font-size: 14px;
+    color: grey;
+}
+div.search-row div.code {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0;
+    height: 100%;
+    width: min-content;
+    right: 5px;
+    top: 0;
+    color: dodgerblue;
+    font-weight: bold;
+}
+a.token {
+    text-decoration: none;
+    color: dodgerblue;
+}
+a.token:hover {
+    text-decoration: underline;
+    color: mediumblue;
+}
+t.token {
+    color: green;
+}
+a.token, t.token {
+    font-size: 18px;
+}

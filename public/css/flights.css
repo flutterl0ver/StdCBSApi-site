@@ -1,0 +1,153 @@
+form {
+    width: 40%;
+    margin: auto;
+}
+form div {
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    margin-top: 10px;
+}
+input.textinput {
+    border-radius: 5px 0 0 5px;
+    border-width: 1px 0 1px 1px;
+    width: 100%;
+}
+input.submit {
+    border-radius: 0 5px 5px 0;
+    height: 43.6px;
+    bottom: 0;
+    margin: auto;
+    border-width: 1px 1px 1px 0;
+    font-size: 18px;
+}
+div.getjson {
+    width: max-content;
+    margin: 10px auto;
+}
+button.getjson {
+    width: max-content;
+}
+tr.headers {
+    height: 50px;
+}
+tr.headers th {
+    border: solid lightgrey;
+    border-width: 2px 0;
+}
+div.table {
+    background-color: white;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    margin: 10px auto;
+    padding: 20px;
+    width: 80%;
+}
+table {
+    width: 100%;
+    font-size: 15px;
+    border-collapse: collapse;
+    text-align: left;
+    border-spacing: 5px;
+}
+tr.dark {
+    background-color: #EFF4F9;
+}
+tr.bright {
+    border: solid lightgrey;
+    border-width: 0 0 1px 0;
+}
+td {
+    padding: 5px;
+}
+td.moreinfo {
+    width: 100%;
+}
+td.moreinfo t {
+    display: block;
+    text-align: center;
+}
+td.moreinfo button {
+    height: 30px;
+    margin: 10px 5px;
+}
+td.moreinfo button.getjson {
+    font-size: inherit;
+}
+button.getreq {
+    border: solid dodgerblue 1px;
+    color: dodgerblue;
+    background-color: #00000000;
+    transition-duration: 0.2s;
+    border-radius: 5px;
+}
+button.getreq:hover {
+    background-color: dodgerblue;
+    color: white;
+    cursor: pointer;
+}
+td.moreinfo button.sendreq {
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: grey;
+    transition-duration: 0.2s;
+}
+td.moreinfo button.sendreq:hover {
+    background-color: dimgrey;
+    cursor: pointer;
+}
+td.moreinfo button.choose {
+    border: none;
+    border-radius: 5px;
+    color: white;
+    background-color: dodgerblue;
+    transition-duration: 0.2s;
+}
+td.moreinfo button.choose:hover {
+    background-color: blue;
+    cursor: pointer;
+}
+td.moreinfo button.right {
+    float: right;
+}
+table.path {
+    background-color: white;
+    width: 95%;
+    margin: 10px auto;
+}
+table.path td {
+    font-size: 13px;
+}
+table.path td,
+table.path th {
+    border: solid black 1px;
+    padding: 10px;
+}
+table.path th {
+    background-color: whitesmoke;
+}
+table.cost th {
+    padding: 3px 10px;
+}
+table.cost td {
+    padding: 10px;
+}
+table.cost th,
+table.cost td {
+    border: solid lightgrey;
+    border-width: 1px 0 0 0;
+}
+div#selectResponse {
+    font-size: 20px;
+    background-color: white;
+    border: solid lightgrey 1px;
+    border-radius: 5px;
+    width: max-content;
+    margin: auto;
+    padding: 20px;
+}
+div#selectResponse button.getreq {
+    font-size: 22px;
+    padding: 10px;
+}
