@@ -164,17 +164,3 @@ div.search-row div.code {
     color: dodgerblue;
     font-weight: bold;
 }
-a.token {
-    text-decoration: none;
-    color: dodgerblue;
-}
-a.token:hover {
-    text-decoration: underline;
-    color: mediumblue;
-}
-t.token {
-    color: green;
-}
-a.token, t.token {
-    font-size: 18px;
-}

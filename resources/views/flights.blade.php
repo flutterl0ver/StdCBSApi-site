@@ -235,20 +235,9 @@
                             @endif
                         </table>
                         <div>
-                            <button class="getjson" onclick="OpenJson(GetFlightData({{ $i }}), null, false)">Просмотр JSON
-                                перелёта
-                            </button>
-                            <button class="sendreq right" onclick="OpenJson(SendFlightRequest({{ $i }}, 'FLIGHT_SUB_CLASSES'))">Запрос подклассов</button>
-                            <button class="getreq right" onclick="OpenJson(OpenFlightRequest({{ $i }}, 'FLIGHT_SUB_CLASSES'))">Посмотреть запрос подклассов</button>
-                        </div>
-                        <div>
-                            <button class="getreq" onclick="OpenJson(OpenFlightRequest({{ $i }}, 'FLIGHT_UPT'))">Посмотреть запрос
-                                УПТ
-                            </button>
-                            <button class="sendreq" onclick="OpenJson(SendFlightRequest({{ $i }}, 'FLIGHT_UPT'))">Получить УПТ
-                            </button>
-                            <button class="choose right" onclick="SendSelectRequest({{ $i }})">Отправить запрос выбора</button>
-                            <button class="getreq right" onclick="OpenJson(OpenFlightRequest({{ $i }}, 'SELECTFLIGHT'))">Посмотреть запрос выбора</button>
+                            <button class="sendreq" onclick="OpenJson(SendFlightRequest({{ $i }}, 'FLIGHT_SUB_CLASSES'))">Запрос подклассов</button>
+                            <button class="sendreq" onclick="OpenJson(SendFlightRequest({{ $i }}, 'FLIGHT_UPT'))">Получить УПТ</button>
+                            <button class="select right" onclick="SendSelectRequest({{ $i }})">Отправить запрос выбора</button>
                         </div>
                     </td>
                 </tr>
@@ -265,7 +254,7 @@
         @csrf
         <label for="token">Запросить результаты по токену</label><br>
         <div>
-            <input type="text" name="token" id="token" class="textinput" value="{{ request()->query('token') }}">
+            <input type="text" autocomplete="off" name="token" id="token" class="textinput" value="{{ request()->query('token') }}">
             <input type="submit" class="submit" value="Запросить">
         </div>
     </form>
