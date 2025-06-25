@@ -120,3 +120,25 @@ table.cost td {
 h3 {
     text-align: center;
 }
+div#upt_div {
+    width: 100%;
+    padding: 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: solid lightgrey 1px;
+}
+div#upt_div button {
+    border: solid dodgerblue 1px;
+    color: dodgerblue;
+    background-color: #00000000;
+    transition-duration: 0.2s;
+    border-radius: 5px;
+    font-size: 20px;
+    padding: 5px 10px;
+    margin-bottom: 20px;
+}
+div#upt_div button:hover {
+    background-color: dodgerblue;
+    color: white;
+    cursor: pointer;
+}

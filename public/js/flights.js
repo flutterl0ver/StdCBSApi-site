@@ -51,13 +51,42 @@ function SwitchMoreInfo(flightId) {
     }
 }
 
-function SendFlightRequest(flightId, command) {
-    const request = GetFlightRequest(flightId, command);
+function SendSubClassesRequest(flightId) {
+    const request = GetFlightRequest(flightId, 'FLIGHT_SUB_CLASSES');
     $.post('/get-flight-data',
         { 'data': JSON.stringify(request) },
         function(data)
         {
             console.log(data);
+        },
+        'json');
+}
+
+function SendUptRequest(flightId) {
+    const request = GetFlightRequest(flightId, 'FLIGHT_UPT');
+    let div = document.getElementById('upt_content');
+    div.innerHTML = 'Информация загружается...';
+
+    document.getElementById('upt_div').style.display = 'block';
+    document.getElementById('header').textContent = 'УПТ перелёта';
+    document.getElementById('table_div').style.display = 'none';
+
+    $.post('/get-flight-data',
+        { 'data': JSON.stringify(request) },
+        function(data)
+        {
+            div.innerHTML = '';
+            const remarkGroups = data['respond']['remarkGroups']['remarkGroup']
+            for(let i = 0; i < remarkGroups.length; i++)
+            {
+                const remarkGroup = remarkGroups[i];
+                const remarks = remarkGroup['remarks']['remark'];
+                for(let j = 0; j < remarks.length; j++)
+                {
+                    const remark = remarks[j];
+                    div.innerHTML += "<div>" + remark['title'] + "<br>" + remark['content'] + "</div>";
+                }
+            }
         },
         'json');
 }
@@ -80,4 +109,10 @@ function SendSelectRequest(flightId) {
                 'json');
         },
         'json')
+}
+
+function CLoseUpt() {
+    document.getElementById('upt_div').style.display = 'none';
+    document.getElementById('table_div').style.display = 'block';
+    document.getElementById('header').textContent = 'Результаты поиска';
 }
