@@ -65,17 +65,20 @@ function SendSubClassesRequest(flightId) {
 function SendUptRequest(flightId) {
     const request = GetFlightRequest(flightId, 'FLIGHT_UPT');
     let div = document.getElementById('upt_content');
-    div.innerHTML = 'Информация загружается...';
+    div.innerHTML = '';
 
     document.getElementById('upt_div').style.display = 'block';
     document.getElementById('header').textContent = 'УПТ перелёта';
     document.getElementById('table_div').style.display = 'none';
+    document.getElementById('uptLoader').style.display = 'block';
+    document.getElementById('uptLoaderText').style.display = 'block';
 
     $.post('/get-flight-data',
         { 'data': JSON.stringify(request) },
         function(data)
         {
-            div.innerHTML = '';
+            document.getElementById('uptLoader').style.display = 'none';
+            document.getElementById('uptLoaderText').style.display = 'none';
             const remarkGroups = data['respond']['remarkGroups']['remarkGroup']
             for(let i = 0; i < remarkGroups.length; i++)
             {
@@ -115,4 +118,10 @@ function CLoseUpt() {
     document.getElementById('upt_div').style.display = 'none';
     document.getElementById('table_div').style.display = 'block';
     document.getElementById('header').textContent = 'Результаты поиска';
+}
+
+function StartSearching() {
+    document.getElementById('form').style.display = 'none';
+    document.getElementById('loader').style.display = 'block';
+    document.getElementById('loaderText').style.display = 'block';
 }

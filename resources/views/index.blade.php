@@ -19,7 +19,9 @@
 </head>
 
 <body>
-<form method="POST" action="/get-token" id="form">
+<t class="loaderText" id="loaderText">Выполняется поиск...</t>
+<span class="loader" id="loader"></span>
+<form method="POST" action="/get-token" id="form" onsubmit="StartSearching()">
     @csrf
     <div class="row">
         <div class="from">

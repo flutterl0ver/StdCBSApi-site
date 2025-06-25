@@ -142,3 +142,6 @@ div#upt_div button:hover {
     color: white;
     cursor: pointer;
 }
+div#upt_div span.loader {
+    margin-bottom: 100px;
+}

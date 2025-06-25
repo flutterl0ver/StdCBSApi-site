@@ -254,10 +254,14 @@
 
     <div style="display: none" id="upt_div">
         <button onclick="CLoseUpt()">Назад</button>
+        <t class="loaderText" id="uptLoaderText">Загрузка УПТ перелёта...</t>
+        <span class="loader" id="uptLoader"></span>
         <div id="upt_content"></div>
     </div>
 @else
-    <form method="POST" action="/search" id="form">
+    <t class="loaderText" id="loaderText">Загрузка перелётов...</t>
+    <span class="loader" id="loader"></span>
+    <form method="POST" action="/search" id="form" onsubmit="StartSearching()">
         @csrf
         <label for="token">Запросить результаты по токену</label><br>
         <div>
@@ -267,6 +271,7 @@
     </form>
     @if(request()->query('token'))
         <script>
+            StartSearching();
             document.getElementById('form').submit();
         </script>
     @endif
