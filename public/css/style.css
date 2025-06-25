@@ -1,19 +1,20 @@
 :root {
-    --background-color: #0C0805;
-    --body-color: black;
-    --alt-body-color: #190F0A;
-    --button-color: #FF8400;
-    --alt-button-color: #D75BC3;
-    --button-hover-color: #FFA13D;
-    --border-color: dimgrey;
-    --text-color: white;
-    --alt-text-color: black;
+    --background-color: #F5F8FA;
+    --body-color: white;
+    --alt-body-color: #EFF4F9;
+    --button-color: dodgerblue;
+    --alt-button-color: #28A745;
+    --button-hover-color: blue;
+    --border-color: lightgrey;
+    --text-color: black;
+    --alt-text-color: white;
 }
 html {
     font-size: 20px;
     color: var(--text-color);
     background-color: var(--background-color);
-    font-family: Raleway, sans-serif;;
+    font-family: Raleway, sans-serif;
+    transition-duration: 0.2s;
 }
 body {
     margin-left: 10%;
@@ -31,6 +32,7 @@ form {
     margin-left: 0;
     margin-right: 0;
     padding: 20px;
+    transition-duration: 0.2s;
 }
 input.textinput,
 button.date_from {
@@ -54,6 +56,7 @@ button.submit {
     float: right;
     font-size: 1em;
     transition-duration: 0.2s;
+    color: var(--alt-text-color);
 }
 input.submit:hover,
 button.submit:hover {
@@ -122,6 +125,25 @@ t.loaderText {
     display: none;
     text-align: center;
     font-size: 1.2em;
+}
+button.darkmode, button.lightmode {
+    height: 100%;
+    aspect-ratio: 1;
+    margin-left: auto;
+    margin-right: 0;
+    background-size: cover;
+    background-color: transparent;
+    border: none;
+    filter: invert();
+}
+button.darkmode:hover, button.lightmode:hover {
+    cursor: pointer;
+}
+button.darkmode {
+    background-image: url("https://cdn-icons-png.flaticon.com/128/12/12548.png");
+}
+button.lightmode {
+    background-image: url("https://cdn-icons-png.flaticon.com/128/66/66275.png");
 }
 
 .loader {

@@ -10,5 +10,6 @@
     <h2><a href="/" @if($page == 'index') class="active" @endif >Начальная страница</a></h2>
     <h2><a href="/flights" @if($page == 'flights') class="active" @endif >Результаты поиска</a></h2>
     <h2><a href="/select" @if($page == 'select') class="active" @endif >Выбор перелёта</a></h2>
+    <button class="darkmode" id="darkmodeButton" onclick="SwitchDarkMode()"></button>
 </div>
 

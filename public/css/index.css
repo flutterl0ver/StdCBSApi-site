@@ -51,7 +51,7 @@ button.closeButton {
     float: right;
     background-image: url('https://cdn-icons-png.flaticon.com/128/1828/1828778.png');
     background-size: cover;
-    filter: invert();
+    background-color: transparent;
     border: none;
 }
 button.closeButton:hover {
@@ -95,7 +95,6 @@ div.row button.switch {
     background-color: transparent;
     background-image: url('https://cdn-icons-png.flaticon.com/128/15049/15049734.png');
     background-size: cover;
-    filter: invert();
     width: 45px;
     aspect-ratio: 1;
     margin-top: auto;
