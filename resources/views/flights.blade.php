@@ -28,7 +28,7 @@
                         echo $segment['locationBegin']['name'] . '(' . $segment['locationBegin']['code'] . ')<br>';
                         $datetime = DateTime::createFromFormat('Y-m-dH:i:s', str_replace('T', '', $segment['dateBegin']));
                         echo $datetime->format('d.m.y ');
-                        echo '<span style="color: #28A43C">' . $datetime->format('H:i') . '</span><br>';
+                        echo '<span style="color: var(--alt-button-color)">' . $datetime->format('H:i') . '</span><br>';
                     }
                 }
             }
@@ -41,7 +41,7 @@
                         echo $segment['locationEnd']['name'] . '(' . $segment['locationEnd']['code'] . ')<br>';
                         $datetime = DateTime::createFromFormat('Y-m-dH:i:s', str_replace('T', '', $segment['dateEnd']));
                         echo $datetime->format('d.m.y ');
-                        echo '<span style="color: #0097F8">' . $datetime->format('H:i') . '</span><br>';
+                        echo '<span style="color: var(--button-color)">' . $datetime->format('H:i') . '</span><br>';
                     }
                 }
             }

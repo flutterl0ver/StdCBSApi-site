@@ -25,12 +25,12 @@ tr.headers {
     height: 50px;
 }
 tr.headers th {
-    border: solid lightgrey;
+    border: solid var(--border-color);
     border-width: 2px 0;
 }
 div.table {
-    background-color: white;
-    border: 1px solid lightgrey;
+    background-color: var(--body-color);
+    border: 1px solid var(--border-color);
     border-radius: 5px;
     margin: 10px auto;
     padding: 20px;
@@ -44,11 +44,12 @@ table {
     border-spacing: 5px;
 }
 tr.dark {
-    background-color: #EFF4F9;
+    background-color: var(--alt-body-color);
 }
 tr.bright {
-    border: solid lightgrey;
-    border-width: 0 0 1px 0;
+    border: solid var(--border-color);
+    /*border-width: 0 0 1px 0;*/
+    border-width: 0;
 }
 td {
     padding: 5px;
@@ -65,46 +66,46 @@ td.moreinfo button {
     margin: 10px 5px;
 }
 td.moreinfo button.sendreq {
-    border: solid dodgerblue 1px;
-    color: dodgerblue;
-    background-color: #00000000;
+    border: solid 1px var(--button-color);
+    color: var(--button-color);
+    background-color: transparent;
     transition-duration: 0.2s;
     border-radius: 5px;
 }
 td.moreinfo button.sendreq:hover {
-    background-color: dodgerblue;
-    color: white;
+    background-color: var(--button-color);
+    color: var(--body-color);
     cursor: pointer;
 }
 td.moreinfo button.select {
     border: none;
     border-radius: 5px;
-    color: white;
-    background-color: dodgerblue;
+    color: var(--text-color);
+    background-color: var(--button-color);
     transition-duration: 0.2s;
 }
 td.moreinfo button.select:hover {
-    background-color: blue;
+    background-color: var(--button-hover-color);
     cursor: pointer;
 }
 td.moreinfo button.right {
     float: right;
 }
 table.path {
-    background-color: white;
+    background-color: transparent;
     width: 95%;
     margin: 10px auto;
 }
 table.path td {
-    font-size: 13px;
+    font-size: 0.7em;
 }
 table.path td,
 table.path th {
-    border: solid black 1px;
+    border: solid 1px var(--text-color);
     padding: 10px;
 }
 table.path th {
-    background-color: whitesmoke;
+    background-color: var(--alt-body-color);
 }
 table.cost th {
     padding: 3px 10px;
@@ -114,7 +115,7 @@ table.cost td {
 }
 table.cost th,
 table.cost td {
-    border: solid lightgrey;
+    border: solid var(--border-color);
     border-width: 1px 0 0 0;
 }
 h3 {
@@ -123,13 +124,14 @@ h3 {
 div#upt_div {
     width: 100%;
     padding: 10px;
-    background-color: white;
+    background-color: var(--body-color);
     border-radius: 5px;
-    border: solid lightgrey 1px;
+    border: solid 1px var(--border-color);
+    line-height: 1.5em;
 }
 div#upt_div button {
-    border: solid dodgerblue 1px;
-    color: dodgerblue;
+    border: solid 1px var(--button-color);
+    color: var(--button-color);
     background-color: #00000000;
     transition-duration: 0.2s;
     border-radius: 5px;
@@ -138,8 +140,8 @@ div#upt_div button {
     margin-bottom: 20px;
 }
 div#upt_div button:hover {
-    background-color: dodgerblue;
-    color: white;
+    background-color: var(--button-color);
+    color: var(--body-color);
     cursor: pointer;
 }
 div#upt_div span.loader {

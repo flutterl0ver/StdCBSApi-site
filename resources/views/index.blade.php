@@ -42,7 +42,7 @@
         </div>
         <div class="date_from" id="date_from_div" style="display: @if (old('hasDateFrom') == 'true') block @else none @endif">
             <label for="date_from">Дата обратно</label>
-            <button class="closeButton date_from_close" type="button" onclick="SwitchDateFrom()"></button>
+            <button class="closeButton" type="button" onclick="SwitchDateFrom()"></button>
             <br>
             <input type="date" name="date_from" id="date_from" class="textinput"
                    value="{{ old('date_from') == null ? date('Y-m-d') : old('date_from') }}">

@@ -1,6 +1,18 @@
+:root {
+    --background-color: #0C0805;
+    --body-color: black;
+    --alt-body-color: #190F0A;
+    --button-color: #FF8400;
+    --alt-button-color: #D75BC3;
+    --button-hover-color: #FFA13D;
+    --border-color: dimgrey;
+    --text-color: white;
+    --alt-text-color: black;
+}
 html {
     font-size: 20px;
-    background-color: #f5f8fa;
+    color: var(--text-color);
+    background-color: var(--background-color);
     font-family: Raleway, sans-serif;;
 }
 body {
@@ -13,19 +25,20 @@ fieldset {
     flex-direction: row;
 }
 form {
-    background-color: white;
-    border: solid lightgrey 1px;
+    background-color: var(--body-color);
+    border: solid 1px var(--border-color);
     border-radius: 10px;
     margin-left: 0;
     margin-right: 0;
     padding: 20px;
-    font-size: 20px;
 }
 input.textinput,
 button.date_from {
-    border: solid lightgrey 1px;
+    border: solid 1px var(--border-color);
     border-radius: 5px;
     height: 40px;
+    background-color: transparent;
+    color: var(--text-color);
 }
 div.row {
     display: flex;
@@ -33,24 +46,22 @@ div.row {
 }
 input.submit,
 button.submit {
-    border: solid lightgrey 1px;
+    border: solid 1px var(--border-color);
     border-radius: 5px;
-    background-color: dodgerblue;
-    color: white;
+    background-color: var(--button-color);
     height: 50px;
     width: 150px;
-    font-size: 20px;
     float: right;
+    font-size: 1em;
     transition-duration: 0.2s;
 }
 input.submit:hover,
 button.submit:hover {
     cursor: pointer;
-    background-color: blue;
+    background-color: var(--button-hover-color);
 }
 label.error {
     color: red;
-    font-size: 20px;
 }
 div.head {
     display: flex;
@@ -68,7 +79,7 @@ div.head {
 div.head h6 {
     margin: 0 20px;
     color: white;
-    font-size: 30px;
+    font-size: 1.8em;
     width: max-content;
     align-self: center;
 }
@@ -76,7 +87,7 @@ div.head h2 {
     display: flex;
     width: max-content;
     margin: 0 10px;
-    font-size: 20px;
+    font-size: 0.95em;
 }
 div.head a {
     align-self: center;
@@ -89,12 +100,12 @@ div.head a:hover {
 button.btn-link {
     font-size: inherit;
     border: none;
-    background-color: #00000000;
-    color: dodgerblue;
+    background-color: transparent;
+    color: var(--button-color);
     transition-duration: 0.2s;
 }
 button.btn-link:hover {
-    color: rebeccapurple;
+    color: var(--button-hover-color);
     cursor: pointer;
     text-decoration: underline;
 }
@@ -110,7 +121,7 @@ h2 a.active {
 t.loaderText {
     display: none;
     text-align: center;
-    font-size: 24px;
+    font-size: 1.2em;
 }
 
 .loader {
