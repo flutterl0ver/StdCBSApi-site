@@ -119,9 +119,3 @@ function CLoseUpt() {
     document.getElementById('table_div').style.display = 'block';
     document.getElementById('header').textContent = 'Результаты поиска';
 }
-
-function StartSearching() {
-    document.getElementById('form').style.display = 'none';
-    document.getElementById('loader').style.display = 'block';
-    document.getElementById('loaderText').style.display = 'block';
-}

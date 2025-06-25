@@ -127,12 +127,6 @@ function SetAirport(id, airport) {
     document.getElementById('airports_' + id).innerHTML = '';
 }
 
-function StartSearching() {
-    document.getElementById('form').style.display = 'none';
-    document.getElementById('loader').style.display = 'block';
-    document.getElementById('loaderText').style.display = 'block';
-}
-
 let adults = 1;
 let children = 0;
 let infants = 0;
