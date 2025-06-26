@@ -1,41 +1,46 @@
-function StartSearching() {
+function startSearching() {
     document.getElementById('form').style.display = 'none';
     document.getElementById('loader').style.display = 'block';
     document.getElementById('loaderText').style.display = 'block';
 }
 
-function SwitchDarkMode() {
+function switchDarkMode() {
     isDarkMode = !isDarkMode;
-    const el = document.documentElement;
     if(isDarkMode)
     {
+        document.getElementById('lightTheme').setAttribute('disabled', 'disabled');
+        document.getElementById('darkTheme').removeAttribute('disabled');
+
         document.getElementById('darkmodeButton').className = 'lightmode';
-
-        el.style.setProperty('--background-color', '#0C0805');
-        el.style.setProperty('--body-color', 'black');
-        el.style.setProperty('--alt-body-color', '#190F0A');
-        el.style.setProperty('--button-color', '#FF8400');
-        el.style.setProperty('--alt-button-color', '#D75BC3');
-        el.style.setProperty('--button-hover-color', '#FFA13D');
-        el.style.setProperty('--border-color', 'dimgrey');
-        el.style.setProperty('--text-color', 'white');
-        el.style.setProperty('--alt-text-color', 'black');
-
     }
     else
     {
-        document.getElementById('darkmodeButton').className = 'darkmode';
+        document.getElementById('lightTheme').removeAttribute('disabled');
+        document.getElementById('darkTheme').setAttribute('disabled', 'disabled');
 
-        el.style.setProperty('--background-color', '#F5F8FA');
-        el.style.setProperty('--body-color', 'white');
-        el.style.setProperty('--alt-body-color', '#EFF4F9');
-        el.style.setProperty('--button-color', 'dodgerblue');
-        el.style.setProperty('--alt-button-color', '#28A745');
-        el.style.setProperty('--button-hover-color', 'blue');
-        el.style.setProperty('--border-color', 'lightgrey');
-        el.style.setProperty('--text-color', 'black');
-        el.style.setProperty('--alt-text-color', 'white');
+        document.getElementById('darkmodeButton').className = 'darkmode';
     }
+    setCookie('darkmode', isDarkMode, 30);
+}
+
+function getCookie(name) {
+    let cookies = document.cookie.split(';');
+    for(let i = 0; i < cookies.length; i++)
+    {
+        let cookie = cookies[i];
+        if(cookie.startsWith(name))
+        {
+            return cookie.split('=')[1];
+        }
+    }
+    return '';
+}
+
+function setCookie(name, value, expireTime) {
+    let d = new Date();
+    d.setTime(d.getTime() + (expireTime * 24 * 60 * 60 * 1000));
+    let expires = "expires="+ d.toUTCString();
+    document.cookie = name + "=" + value + "; " + expires + "; path=/";
 }
 
 $(document).ready(function() {
@@ -44,5 +49,3 @@ $(document).ready(function() {
             { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
     });
 });
-
-let isDarkMode = false;

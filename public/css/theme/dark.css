@@ -1,0 +1,12 @@
+:root {
+    --background-color: #0C0805;
+    --body-color: black;
+    --alt-body-color: #190F0A;
+    --button-color: #FF8400;
+    --alt-button-color: #D75BC3;
+    --button-hover-color: #FFA13D;
+    --border-color: dimgrey;
+    --text-color: white;
+    --alt-text-color: black;
+}
+

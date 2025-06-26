@@ -21,7 +21,7 @@
 <body>
 <t class="loaderText" id="loaderText">Выполняется поиск...</t>
 <span class="loader" id="loader"></span>
-<form method="POST" action="/get-token" id="form" onsubmit="StartSearching()">
+<form method="POST" action="/get-token" id="form" onsubmit="startSearching()">
     @csrf
     <div class="row">
         <div class="from">

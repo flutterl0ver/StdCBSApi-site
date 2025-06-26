@@ -261,7 +261,7 @@
 @else
     <t class="loaderText" id="loaderText">Загрузка перелётов...</t>
     <span class="loader" id="loader"></span>
-    <form method="POST" action="/search" id="form" onsubmit="StartSearching()">
+    <form method="POST" action="/search" id="form" onsubmit="startSearching()">
         @csrf
         <label for="token">Запросить результаты по токену</label><br>
         <div>
@@ -271,7 +271,7 @@
     </form>
     @if(request()->query('token'))
         <script>
-            StartSearching();
+            startSearching();
             document.getElementById('form').submit();
         </script>
     @endif

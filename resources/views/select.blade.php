@@ -14,7 +14,7 @@
 <body>
     <t class="loaderText" id="loaderText">Загрузка данных перелёта...</t>
     <span class="loader" id="loader"></span>
-    <form method="POST" action="/select" id="form" onsubmit="StartSearching()">
+    <form method="POST" action="/select" id="form" onsubmit="startSearching()">
         @csrf
         <label for="token">Получить результаты выбора по токену</label><br>
         <div>

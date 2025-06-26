@@ -1,0 +1,11 @@
+:root {
+    --background-color: #F5F8FA;
+    --body-color: white;
+    --alt-body-color: #EFF4F9;
+    --button-color: dodgerblue;
+    --alt-button-color: #28A745;
+    --button-hover-color: blue;
+    --border-color: lightgrey;
+    --text-color: black;
+    --alt-text-color: white;
+}
