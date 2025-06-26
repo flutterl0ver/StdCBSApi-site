@@ -95,26 +95,31 @@ function SendUptRequest(flightId) {
 }
 
 function SendSelectRequest(flightId) {
-    document.getElementById('tableDiv').style.display = 'none'
+    document.getElementById('table_div').style.display = 'none';
+    document.getElementById('selectLoader').style.display = 'block';
+    document.getElementById('selectLoaderText').style.display = 'block';
+    document.getElementById('header').style.display = 'none';
 
     const request = GetFlightRequest(flightId, 'SELECTFLIGHT');
-    $.post('/request/flight',
+    $.post('/get-flight-data',
         { 'data': JSON.stringify(request) },
-        function(data)
+        function(response)
         {
-            $.post('/get-flight-data',
-                { 'data': JSON.stringify(request) },
-                function(response)
-                {
-                    jsonField.innerHTML = '<button class="getreq" onclick="CloseSelectRequest()">Выбрать другой перелёт</button>';
-                    jsonField.appendChild(renderjson({ 'request': data, 'response': response }));
-                },
-                'json');
+            if(response['respond']['token'] !== '')
+            {
+                window.location.replace('/booking?token=' + response['respond']['token']);
+                return;
+            }
+
+            document.getElementById('selectLoader').style.display = 'none';
+            document.getElementById('selectLoaderText').style.display = 'none';
+            document.getElementById('table_div').style.display = 'block';
+            document.getElementById('header').style.display = 'initial';
         },
-        'json')
+        'json');
 }
 
-function CLoseUpt() {
+function CloseUpt() {
     document.getElementById('upt_div').style.display = 'none';
     document.getElementById('table_div').style.display = 'block';
     document.getElementById('header').textContent = 'Результаты поиска';

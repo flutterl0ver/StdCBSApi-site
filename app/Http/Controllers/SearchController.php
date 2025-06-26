@@ -5,13 +5,14 @@ namespace App\Http\Controllers;
 use App\Services\DTO\FlightRequestData;
 use App\Services\DTO\SearchData;
 use App\Services\DTO\SearchResultData;
+use App\Services\DTO\SelectResultData;
 use App\Services\SearchService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
-    public function getToken(Request $request, SearchService $searchService) : RedirectResponse
+    public function search(Request $request, SearchService $searchService) : RedirectResponse
     {
         $rules = [
             'from' => 'required|string',
@@ -65,7 +66,7 @@ class SearchController extends Controller
         return redirect('/')->withInput();
     }
 
-    public function search(Request $request, SearchService $searchService) : RedirectResponse
+    public function searchResult(Request $request, SearchService $searchService) : RedirectResponse
     {
         $token = $request->post('token');
 
@@ -86,5 +87,18 @@ class SearchController extends Controller
         $data = new FlightRequestData($command, $data);
 
         return $searchService->search('ttbooking', $data);
+    }
+
+    public function selectResult(Request $request, SearchService $searchService) : RedirectResponse
+    {
+        $token = $request->post('token');
+
+        $data = new SelectResultData($token);
+
+        $response = $searchService->search('ttbooking', $data);
+
+        return redirect("/booking?token={$token}")->with([
+            'response' => $response
+        ]);
     }
 }

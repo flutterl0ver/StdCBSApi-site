@@ -35,6 +35,7 @@ div.table {
     margin: 10px auto;
     padding: 20px;
     width: 80%;
+    transition-duration: 0.2s;
 }
 table {
     width: 100%;

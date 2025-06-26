@@ -10,6 +10,8 @@
 </head>
 <body>
 @if (session('response') && session('response')['respond']['token'] != '')
+    <t class="loaderText" id="selectLoaderText">Загрузка данных перелёта...</t>
+    <span class="loader" id="selectLoader"></span>
     <script>
         const response = JSON.parse('{!! json_encode(session('response'), JSON_UNESCAPED_UNICODE) !!}');
         const token = '{{ session('response')['respond']['token'] }}';
@@ -253,7 +255,7 @@
     </div>
 
     <div style="display: none" id="upt_div">
-        <button onclick="CLoseUpt()">Назад</button>
+        <button onclick="CloseUpt()">Назад</button>
         <t class="loaderText" id="uptLoaderText">Загрузка УПТ перелёта...</t>
         <span class="loader" id="uptLoader"></span>
         <div id="upt_content"></div>
@@ -261,7 +263,7 @@
 @else
     <t class="loaderText" id="loaderText">Загрузка перелётов...</t>
     <span class="loader" id="loader"></span>
-    <form method="POST" action="/search" id="form" onsubmit="startSearching()">
+    <form method="POST" action="/search-result" id="form" onsubmit="startSearching()">
         @csrf
         <label for="token">Запросить результаты по токену</label><br>
         <div>
