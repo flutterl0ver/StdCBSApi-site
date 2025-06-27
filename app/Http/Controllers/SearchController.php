@@ -99,30 +99,17 @@ class SearchController extends Controller
         $command = $data['command'];
         $data = new FlightRequestData($command, $data);
 
-        $response = $searchService->search(CONTEXT_ID, $data);
-
-        $bookingRequest = new BookingRequest();
-        $bookingRequest->context_id = CONTEXT_ID;
-        $bookingRequest->search_token = $data->getData()['token'];
-        $bookingRequest->request = json_encode($data->toArray());
-        $bookingRequest->request_token = $response['respond']['token'];
-        $bookingRequest->status = 0;
-        $bookingRequest->save();
+        $response = $searchService->select(CONTEXT_ID, $data);
 
         return $response;
     }
-
     public function selectResult(Request $request, SearchService $searchService) : RedirectResponse
     {
         $token = $request->post('token');
 
         $data = new SelectResultData($token);
 
-        $response = $searchService->search(CONTEXT_ID, $data);
-
-        $bookingRequest = BookingRequest::where('request_token', $token)->first();
-        $bookingRequest->response = json_encode($response);
-        $bookingRequest->save();
+        $response = $searchService->selectResult(CONTEXT_ID, $data);
 
         return redirect("/booking?token={$token}")->with([
             'response' => $response
