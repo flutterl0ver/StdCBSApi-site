@@ -1,23 +1,40 @@
-form {
+form#form {
     width: 40%;
     margin: auto;
 }
-form div {
+form#form div {
     display: flex;
     flex-direction: row;
     height: 40px;
     margin-top: 10px;
 }
-input.textinput {
+form#form input.textinput {
     border-radius: 5px 0 0 5px;
     border-width: 1px 0 1px 1px;
     width: 100%;
 }
-input.submit {
+form#form input.submit {
     border-radius: 0 5px 5px 0;
     height: 43.6px;
     bottom: 0;
     margin: auto;
     border-width: 1px 1px 1px 0;
     font-size: 18px;
+}
+form.bigform {
+    width: 100%;
+}
+form.bigform h1 {
+    font-size: 1.2em;
+    margin: 0;
+}
+form.bigform label {
+    font-size: 0.8em;
+}
+form.bigform div {
+    height: auto;
+}
+div.row {
+    display: flex;
+    flex-direction: row;
 }

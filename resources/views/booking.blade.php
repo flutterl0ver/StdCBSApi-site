@@ -34,6 +34,24 @@
         <div id="upt_content"></div>
     </div>
 @else
+    <form method="post" class="bigform">
+        <div>
+            <h1>Информация о покупателе</h1>
+
+            <div class="row">
+                <div style="margin-right: 20px">
+                    <label for="customer_phone">Номер телефона</label><br>
+                    <input type="text" class="textinput" name="customer_phone">
+                </div>
+                <div>
+                    <label for="customer_email">Адрес электронной почты</label><br>
+                    <input type="text" class="textinput" name="customer_email">
+                </div>
+            </div>
+        </div>
+    </form>
+
+    @if(false)
     <t class="loaderText" id="loaderText">Загрузка данных перелёта...</t>
     <span class="loader" id="loader"></span>
     <form method="POST" action="/select-result" id="form" onsubmit="startSearching()">
@@ -51,6 +69,7 @@
             document.getElementById('form').submit();
         </script>
     @endif
+        @endif
 @endif
 </body>
 </html>

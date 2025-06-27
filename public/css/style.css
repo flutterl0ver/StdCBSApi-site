@@ -30,6 +30,7 @@ button.date_from {
     height: 40px;
     background-color: transparent;
     color: var(--text-color);
+    padding: 0 10px;
 }
 div.row {
     display: flex;

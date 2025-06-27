@@ -97,12 +97,12 @@ class SearchController extends Controller
         $data = json_decode($request->post('data'), true);
 
         $command = $data['command'];
+        unset($data['command']);
         $data = new FlightRequestData($command, $data);
 
-        $response = $searchService->select(CONTEXT_ID, $data);
-
-        return $response;
+        return $searchService->select(CONTEXT_ID, $data);
     }
+
     public function selectResult(Request $request, SearchService $searchService) : RedirectResponse
     {
         $token = $request->post('token');
