@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookingRequest;
 use App\Services\DTO\FlightRequestData;
 use App\Services\DTO\SearchData;
 use App\Services\DTO\SearchResultData;
@@ -9,6 +10,8 @@ use App\Services\DTO\SelectResultData;
 use App\Services\SearchService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+
+const CONTEXT_ID = 1;
 
 class SearchController extends Controller
 {
@@ -57,9 +60,9 @@ class SearchController extends Controller
             $request->post('infants')
         );
 
-        $response = $searchService->search('ttbooking', $data);
+        $response = $searchService->search(CONTEXT_ID, $data);
 
-        if($response['respond']['token'] != '')
+        if(isset($response['respond']) && $response['respond']['token'] != '')
         {
             return redirect('/flights?token='.$response['respond']['token']);
         }
@@ -72,7 +75,7 @@ class SearchController extends Controller
 
         $data = new SearchResultData($token);
 
-        $response = $searchService->search('ttbooking', $data);
+        $response = $searchService->search(CONTEXT_ID, $data);
 
         return redirect("/flights?token={$token}")->with([
             'response' => $response
@@ -86,7 +89,27 @@ class SearchController extends Controller
         $command = $data['command'];
         $data = new FlightRequestData($command, $data);
 
-        return $searchService->search('ttbooking', $data);
+        return $searchService->search(CONTEXT_ID, $data);
+    }
+
+    public function select(Request $request, SearchService $searchService) : array
+    {
+        $data = json_decode($request->post('data'), true);
+
+        $command = $data['command'];
+        $data = new FlightRequestData($command, $data);
+
+        $response = $searchService->search(CONTEXT_ID, $data);
+
+        $bookingRequest = new BookingRequest();
+        $bookingRequest->context_id = CONTEXT_ID;
+        $bookingRequest->search_token = $data->getData()['token'];
+        $bookingRequest->request = json_encode($data->toArray());
+        $bookingRequest->request_token = $response['respond']['token'];
+        $bookingRequest->status = 0;
+        $bookingRequest->save();
+
+        return $response;
     }
 
     public function selectResult(Request $request, SearchService $searchService) : RedirectResponse
@@ -95,7 +118,11 @@ class SearchController extends Controller
 
         $data = new SelectResultData($token);
 
-        $response = $searchService->search('ttbooking', $data);
+        $response = $searchService->search(CONTEXT_ID, $data);
+
+        $bookingRequest = BookingRequest::where('request_token', $token)->first();
+        $bookingRequest->response = json_encode($response);
+        $bookingRequest->save();
 
         return redirect("/booking?token={$token}")->with([
             'response' => $response

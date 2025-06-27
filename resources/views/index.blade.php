@@ -6,7 +6,7 @@
 
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <?php $page = 'index'?>
+    <?php $page = 'index' ?>
     @include('components.head')
 
     <title>Найти билеты</title>
@@ -26,13 +26,17 @@
     <div class="row">
         <div class="from">
             <label for="from">Откуда</label>
-            <input type="text" name="from" id="from" class="textinput" autocomplete="off" onfocusin="SwitchAirports('from', 'block')" onfocusout="SwitchAirports('from', 'none')" oninput="SearchAirports('from')" value="{{ old('from') }}">
+            <input type="text" name="from" id="from" class="textinput" autocomplete="off"
+                   onfocusin="SwitchAirports('from', 'block')" onfocusout="SwitchAirports('from', 'none')"
+                   oninput="SearchAirports('from')" value="{{ old('from') }}">
             <div class="airports" id="airports_from"></div>
         </div>
         <button class="switch" type="button" onclick="SwapPlaces()"></button>
         <div class="to">
             <label for="to">Куда</label>
-            <input type="text" name="to" id="to" class="textinput" autocomplete="off" onfocusin="SwitchAirports('to', 'block')" onfocusout="SwitchAirports('to', 'none')" oninput="SearchAirports('to')" value="{{ old('to') }}">
+            <input type="text" name="to" id="to" class="textinput" autocomplete="off"
+                   onfocusin="SwitchAirports('to', 'block')" onfocusout="SwitchAirports('to', 'none')"
+                   oninput="SearchAirports('to')" value="{{ old('to') }}">
             <div class="airports" id="airports_to"></div>
         </div>
         <div class="date_to">
@@ -40,7 +44,8 @@
             <input type="date" name="date_to" id="date_to" class="textinput"
                    value="{{ old('date_to') == null ? date('Y-m-d') : old('date_to') }}">
         </div>
-        <div class="date_from" id="date_from_div" style="display: @if (old('hasDateFrom') == 'true') block @else none @endif">
+        <div class="date_from" id="date_from_div"
+             style="display: @if (old('hasDateFrom') == 'true') block @else none @endif">
             <label for="date_from">Дата обратно</label>
             <button class="closeButton" type="button" onclick="SwitchDateFrom()"></button>
             <br>
@@ -64,7 +69,8 @@
             <label for="children">Детей</label><br>
             <button type="button" id="children0" class="radio active" onclick="ChangeChildren(0)">0</button>
             @for ($i = 1; $i < MAX_PEOPLE; $i++)
-                <button type="button" id="children{{ $i }}" class="radio" onclick="ChangeChildren({{ $i }})">{{ $i }}</button>
+                <button type="button" id="children{{ $i }}" class="radio"
+                        onclick="ChangeChildren({{ $i }})">{{ $i }}</button>
             @endfor
         </div>
         <div>
@@ -92,13 +98,13 @@
 
     <script>
         @if(old('adults'))
-            ChangeAdults({{ old('adults') }});
+        ChangeAdults({{ old('adults') }});
         @endif
         @if(old('children'))
-            ChangeChildren({{ old('children') }});
+        ChangeChildren({{ old('children') }});
         @endif
         @if(old('infants'))
-            ChangeInfants({{ old('infants') }});
+        ChangeInfants({{ old('infants') }});
         @endif
     </script>
 </form>

@@ -5,11 +5,11 @@ function SendSelectRequest(flightId) {
     document.getElementById('header').style.display = 'none';
 
     const request = GetFlightRequest(flightId, 'SELECTFLIGHT');
-    $.post('/get-flight-data',
+    $.post('/select',
         { 'data': JSON.stringify(request) },
         function(response)
         {
-            if(response['respond']['token'] !== '')
+            if(response !== null && response['respond']['token'] !== '')
             {
                 window.location.replace('/booking?token=' + response['respond']['token']);
                 return;

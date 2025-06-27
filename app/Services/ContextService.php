@@ -3,21 +3,28 @@
 namespace App\Services;
 
 use App\Services\DTO\ApiInfo;
-use App\Services\DTO\ContextSettings;
 
 class ContextService
 {
-    public function constructContext(string $api, string $command) : ContextSettings
+    public function constructContext(int $contextId, string $command) : array
     {
-        $apiInfo = new ApiInfo($api);
+        $apiInfo = new ApiInfo($contextId);
+        $data = $apiInfo->getData();
 
-        return new ContextSettings(
-            $apiInfo->getAgency(),
-            $apiInfo->getPassword(),
-            $apiInfo->getUser(),
-            date('Y-m-d\TH:i:sP'),
-            'ru',
-            $command
-        );
+        $timeStamp = date('Y-m-d\TH:i:sP');
+
+        $hash = md5('agency='.$data['agency'].
+            '&password='.$data['password'].
+            '&time='.$timeStamp.
+            '&user='.$data['user']);
+
+        return [
+            'agency' => $data['agency'],
+            'user' => $data['user'],
+            'hash' => $hash,
+            'time' => $timeStamp,
+            'locale' => 'ru',
+            'command' => $command
+        ];
     }
 }

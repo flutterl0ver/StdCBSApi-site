@@ -6,28 +6,14 @@ use App\Models\Api;
 
 class ApiInfo
 {
-    private string $password;
-    private string $user;
     private string $url;
-    private int $agency;
+    private array $data;
 
-    public function __construct(string $apiName) {
-        $apiInfo = Api::where('name', $apiName)->first();
+    public function __construct(int $contextId) {
+        $apiInfo = Api::where('id', $contextId)->first();
 
-        $this->password = $apiInfo->password;
-        $this->user = $apiInfo->user;
         $this->url = $apiInfo->url;
-        $this->agency = $apiInfo->agency;
-    }
-
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
-
-    public function getUser(): string
-    {
-        return $this->user;
+        $this->data = json_decode($apiInfo->data, true);
     }
 
     public function getUrl(): string
@@ -35,8 +21,8 @@ class ApiInfo
         return $this->url;
     }
 
-    public function getAgency(): int
+    public function getData(): array
     {
-        return $this->agency;
+        return $this->data;
     }
 }

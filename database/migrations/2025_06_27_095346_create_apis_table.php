@@ -11,15 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('select_requests', function (Blueprint $table) {
+        Schema::create('apis', function (Blueprint $table) {
             $table->id();
-            $table->string('token');
-            $table->integer('context_id');
-            $table->json('errors');
-            $table->json('request');
-            $table->json('response');
-            $table->integer('status');
-            $table->timestamps();
+            $table->string('name');
+            $table->string('url');
+            $table->json('data');
         });
     }
 
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('select_requests');
+        Schema::dropIfExists('apis');
     }
 };
