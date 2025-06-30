@@ -50,7 +50,10 @@
             </div>
             <hr>
         </div>
-            <?php $i = 0; ?>
+        <?php
+            $i = 0;
+            $countries = \App\Models\Country::select('code', 'name_ru')->get();
+        ?>
         @foreach ($flights[0]['fares']['fareSeats']['fareSeat'] as $seat)
             @for ($j = 0; $j < $seat['count']; $j++)
                 <div>
@@ -86,7 +89,9 @@
                             <div>
                                 <label for="citizenship{{ $i }}">Гражданство</label><br>
                                 <select name="citizenship{{ $i }}">
-                                    <option value="ru">Россия</option>
+                                    @foreach ($countries as $country)
+                                        <option value={{ $country->code }}>{{ $country->name_ru }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div>
