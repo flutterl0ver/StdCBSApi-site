@@ -23,6 +23,7 @@ form#form input.submit {
 }
 form.bigform {
     width: 100%;
+    font-size: 1em;
 }
 form.bigform h1 {
     font-size: 1.2em;
@@ -37,4 +38,50 @@ form.bigform div {
 div.row {
     display: flex;
     flex-direction: row;
+}
+div.row.passenger {
+    padding: 0 20px;
+    column-gap: 50px;
+}
+div.row.passenger div {
+    width: 100%;
+}
+div.row.passenger input.textinput {
+    width: 100%;
+}
+div.row.passenger div.small {
+    width: max-content;
+}
+button.male, button.female {
+    background-color: var(--background-color);
+    border-width: 0;
+    color: var(--text-color);
+    padding: 15px;
+    font-size: 1.05em;
+    transition-duration: 0.2s;
+}
+button.male:hover, button.female:hover {
+    background-color: var(--border-color);
+    cursor: pointer;
+}
+button.male {
+    border-radius: 5px 0 0 5px;
+}
+button.female {
+    border-radius: 0 5px 5px 0;
+}
+div.column {
+    display: flex;
+    flex-direction: column;
+    row-gap: 30px;
+}
+select {
+    width: 100%;
+    border: solid 1px var(--border-color);
+    border-radius: 5px;
+    padding: 0 10px;
+    height: 40px;
+    background-color: var(--body-color);
+    color: var(--text-color);
+    transition-duration: 0.2s;
 }
