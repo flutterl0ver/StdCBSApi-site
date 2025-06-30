@@ -70,6 +70,9 @@ button.male {
 button.female {
     border-radius: 0 5px 5px 0;
 }
+button.male.active, button.female.active {
+    background-color: var(--border-color);
+}
 div.column {
     display: flex;
     flex-direction: column;
@@ -84,4 +87,7 @@ select {
     background-color: var(--body-color);
     color: var(--text-color);
     transition-duration: 0.2s;
+}
+hr {
+    margin: 20px 0 40px 0;
 }

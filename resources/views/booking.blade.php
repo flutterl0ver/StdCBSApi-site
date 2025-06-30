@@ -33,7 +33,7 @@
         <span class="loader" id="uptLoader"></span>
         <div id="upt_content"></div>
     </div>
-@else
+
     <form method="post" class="bigform">
         <div>
             <h1>Информация о покупателе</h1><br>
@@ -50,89 +50,93 @@
             </div>
             <hr>
         </div>
-        @for ($i = 0; $i < 5; $i++)
-        <div>
-            <h1>Пассажир №{{ $i + 1 }} (Взрослый)</h1><br>
-            <div class="column">
-                <div class="row passenger">
-                    <div class="small">
-                        Пол<br>
-                        <div class="row">
-                            <button class="male" type="button">М</button>
-                            <button class="female" type="button">Ж</button>
-                        </div>
-                    </div>
-                    <div>
-                        <label for="surname">Фамилия</label><br>
-                        <input type="text" class="textinput" name="surname">
-                    </div>
-                    <div>
-                        <label for="name">Имя</label><br>
-                        <input type="text" class="textinput" name="name">
-                    </div>
-                    <div>
-                        <label for="patronymic">Отчество (при наличии)</label><br>
-                        <input type="text" class="textinput" name="patronymic">
-                    </div>
-                    <div>
-                        <label for="birth_date">Дата рождения</label><br>
-                        <input type="date" class="textinput" name="birth_date">
-                    </div>
-                </div>
-                <div class="row passenger">
-                    <div>
-                        <label for="nationality">Гражданство</label><br>
-                        <select name="nationality">
-                            <option value="ru">Россия</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="document">Тип документа</label><br>
-                        <select name="document">
-                            <option value="ru_passport">Паспорт гражданина РФ</option>
-                            <option value="ru_travel_passport">Паспорт гражданина РФ</option>
-                            <option value="birth_certificate">Свидетельство о рождении</option>
-                            <option value="foreign_passport">Паспорт иностранного гражданина</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="document_number">Номер документа</label><br>
-                        <input type="text" class="textinput" name="document_number">
-                    </div>
-                    <div>
-                        <label for="document_expire_date">Срок действия</label><br>
-                        <input type="date" class="textinput" name="document_expire_date">
-                    </div>
-                </div>
-                <div class="row passenger">
-                    <div class="small">
-                        <label for="passenger_phone">Телефон пассажира</label><br>
-                        <input type="text" class="textinput" name="passenger_phone">
-                    </div>
-                    <div class="small">
-                        <div class="row">
+            <?php $i = 0; ?>
+        @foreach ($flights[0]['fares']['fareSeats']['fareSeat'] as $seat)
+            @for ($j = 0; $j < $seat['count']; $j++)
+                <div>
+                    <h1>Пассажир №{{ $i + 1 }} ({{ match($seat['passengerType']) { "ADULT" => 'Взрослый', "CHILD" => "Ребёнок", "INFANT" => "Младенец" } }})</h1><br>
+                    <div class="column">
+                        <div class="row passenger">
+                            <div class="small">
+                                Пол<br>
+                                <div class="row">
+                                    <button class="male" id="male{{ $i }}" type="button" onclick="SwitchGender({{ $i }}, 'male')">М</button>
+                                    <button class="female" id="female{{ $i }}" type="button" onclick="SwitchGender({{ $i }}, 'female')">Ж</button>
+                                </div>
+                                <input type="hidden" name="gender{{ $i }}" id="gender{{ $i }}">
+                            </div>
                             <div>
-                                <label for="passenger_email">E-mail пассажира</label>
-                                <input type="text" class="textinput" name="passenger_email">
+                                <label for="surname{{ $i }}">Фамилия</label><br>
+                                <input type="text" class="textinput" name="surname{{ $i }}">
                             </div>
-                            <div style="margin-left: 25px; font-size: 0.9em; margin-top: auto">
-                                <div>
-                                    <input type="radio" name="no_email">отказ клиента
-                                </div>
-                                <div>
-                                    <input type="radio" name="no_email">нет у клиента
+                            <div>
+                                <label for="name{{ $i }}">Имя</label><br>
+                                <input type="text" class="textinput" name="name{{ $i }}">
+                            </div>
+                            <div>
+                                <label for="patronymic{{ $i }}">Отчество (при наличии)</label><br>
+                                <input type="text" class="textinput" name="patronymic{{ $i }}">
+                            </div>
+                            <div>
+                                <label for="birth_date{{ $i }}">Дата рождения</label><br>
+                                <input type="date" class="textinput" name="birth_date{{ $i }}">
+                            </div>
+                        </div>
+                        <div class="row passenger">
+                            <div>
+                                <label for="citizenship{{ $i }}">Гражданство</label><br>
+                                <select name="citizenship{{ $i }}">
+                                    <option value="ru">Россия</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="document{{ $i }}">Тип документа</label><br>
+                                <select name="document{{ $i }}">
+                                    <option value="ru_passport">Паспорт гражданина РФ</option>
+                                    <option value="ru_travel_passport">Паспорт гражданина РФ</option>
+                                    <option value="birth_certificate">Свидетельство о рождении</option>
+                                    <option value="foreign_passport">Паспорт иностранного гражданина</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="document_number{{ $i }}">Номер документа</label><br>
+                                <input type="text" class="textinput" name="document_number{{ $i }}">
+                            </div>
+                            <div>
+                                <label for="document_expire_date{{ $i }}">Срок действия</label><br>
+                                <input type="date" class="textinput" name="document_expire_date{{ $i }}">
+                            </div>
+                        </div>
+                        <div class="row passenger">
+                            <div class="small">
+                                <label for="passenger_phone{{ $i }}">Телефон пассажира</label><br>
+                                <input type="text" class="textinput" name="passenger_phone{{ $i }}">
+                            </div>
+                            <div class="small">
+                                <div class="row">
+                                    <div>
+                                        <label for="passenger_email{{ $i }}">E-mail пассажира</label>
+                                        <input type="text" class="textinput" name="passenger_email{{ $i }}">
+                                    </div>
+                                    <div style="margin-left: 25px; font-size: 0.9em; margin-top: auto">
+                                        <div>
+                                            <input type="radio" name="email_refused{{ $i }}">отказ клиента
+                                        </div>
+                                        <div>
+                                            <input type="radio" name="email_absent{{ $i }}">нет у клиента
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    @if($i != 4) <hr> @endif
                 </div>
-            </div>
-            @if($i != 4) <hr> @endif
-        </div>
+                <?php $i++; ?>
             @endfor
+        @endforeach
     </form>
-
-    @if(false)
+@else
     <t class="loaderText" id="loaderText">Загрузка данных перелёта...</t>
     <span class="loader" id="loader"></span>
     <form method="POST" action="/select-result" id="form" onsubmit="startSearching()">
@@ -150,7 +154,6 @@
             document.getElementById('form').submit();
         </script>
     @endif
-        @endif
 @endif
 </body>
 </html>
