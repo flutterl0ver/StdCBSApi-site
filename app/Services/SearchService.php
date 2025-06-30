@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Interfaces\IApiRequestData;
-use App\Models\BookingRequest;
+use App\Models\SelectRequest;
 use App\Providers\SearchProvider;
 use App\Services\DTO\FlightRequestData;
 use App\Services\DTO\SelectResultData;
@@ -26,7 +26,7 @@ class SearchService
     {
         $response = $this->search($contextId, $request);
 
-        $bookingRequest = new BookingRequest();
+        $bookingRequest = new SelectRequest();
         $bookingRequest->context_id = $contextId;
         $bookingRequest->search_token = $request->getData()['token'];
         $bookingRequest->request = json_encode($request->toArray());
@@ -41,7 +41,7 @@ class SearchService
     {
         $response = $this->search($contextId, $request);
 
-        $bookingRequest = BookingRequest::where('request_token', $request->getToken())->first();
+        $bookingRequest = SelectRequest::where('request_token', $request->getToken())->first();
         $bookingRequest->response = json_encode($response);
         $bookingRequest->save();
 

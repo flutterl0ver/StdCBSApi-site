@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BookingRequest;
+use App\Models\SelectRequest;
 use App\Services\DTO\FlightRequestData;
 use App\Services\DTO\SearchData;
 use App\Services\DTO\SearchResultData;

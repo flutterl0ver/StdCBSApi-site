@@ -34,7 +34,7 @@
         <div id="upt_content"></div>
     </div>
 
-    <form method="post" class="bigform">
+    <form method="post" class="bigform" action="/make-booking">
         <div>
             <h1>Информация о покупателе</h1><br>
 
