@@ -116,25 +116,28 @@
                                 <div class="row">
                                     <div>
                                         <label for="passenger_email{{ $i }}">E-mail пассажира</label>
-                                        <input type="text" class="textinput" name="passenger_email{{ $i }}">
+                                        <input type="text" class="textinput" onfocus="EnableEmail({{ $i }})" id="passenger_email{{ $i }}" name="passenger_email{{ $i }}">
                                     </div>
                                     <div style="margin-left: 25px; font-size: 0.9em; margin-top: auto">
                                         <div>
-                                            <input type="radio" name="email_refused{{ $i }}">отказ клиента
+                                            <input type="radio" onclick="DisableEmail({{ $i }})" id="email_refused{{ $i }}" name="no_email{{ $i }}">отказ клиента
                                         </div>
                                         <div>
-                                            <input type="radio" name="email_absent{{ $i }}">нет у клиента
+                                            <input type="radio" onclick="DisableEmail({{ $i }})" id="email_absent{{ $i }}" name="no_email{{ $i }}">нет у клиента
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    @if($i != 4) <hr> @endif
+                    <hr>
                 </div>
                 <?php $i++; ?>
             @endfor
         @endforeach
+        <div>
+            <input class="submit" type="submit">
+        </div>
     </form>
 @else
     <t class="loaderText" id="loaderText">Загрузка данных перелёта...</t>

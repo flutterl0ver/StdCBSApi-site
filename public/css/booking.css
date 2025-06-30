@@ -91,3 +91,9 @@ select {
 hr {
     margin: 20px 0 40px 0;
 }
+input.disabled {
+    background-color: var(--border-color);
+}
+input.submit {
+    float: none;
+}

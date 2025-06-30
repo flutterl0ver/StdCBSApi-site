@@ -23,6 +23,7 @@ table {
 }
 tr.dark {
     background-color: var(--alt-body-color);
+    transition-duration: 0.2s;
 }
 tr.bright {
 
@@ -82,6 +83,7 @@ table.path th {
 }
 table.path th {
     background-color: var(--alt-body-color);
+    transition-duration: 0.2s;
 }
 table.cost th {
     padding: 3px 10px;
