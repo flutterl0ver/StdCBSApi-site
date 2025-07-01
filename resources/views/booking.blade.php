@@ -138,11 +138,12 @@
                     </div>
                     <hr>
                 </div>
+                <input type="hidden" name="passenger_type{{ $i }}" value="{{ $seat['passengerType'] }}">
                 <?php $i++; ?>
             @endfor
         @endforeach
         <input type="hidden" name="passengers_count" value="{{ $i }}">
-        <input type="hidden" name="token" value="{{ session('response')['respond']['token'] }}";
+        <input type="hidden" name="token" value="{{ session('response')['respond']['token'] }}">
         <div>
             <input class="submit" type="submit">
         </div>

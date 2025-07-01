@@ -11,6 +11,7 @@ class BookingRequestData implements IApiRequestData
     private string $token;
     /** @var PassengerData[] */
     private array $passengers;
+    private array $flightsGroup;
 
     public function __construct(string $customer_phone, string $customer_email, string $token, array $passengers)
     {
@@ -27,7 +28,26 @@ class BookingRequestData implements IApiRequestData
 
     public function toArray(): array
     {
-        return [];
+        $firstPassenger = $this->passengers[0];
+        $data = [
+            "token" => $this->token,
+            "flightsGroup" => $this->flightsGroup,
+            "customer" => [
+                "name" => $firstPassenger->getSurname().' '.$firstPassenger->getName().' '.$firstPassenger->getPatronymic(),
+                "email" => $this->customer_email,
+                "countryCode" => "1",
+                "areaCode" => "231",
+                "phoneNumber" => $this->customer_phone
+            ],
+            "passengers" => [
+                "passenger" => []
+            ]
+        ];
+        foreach ($this->passengers as $passenger)
+        {
+            $data['passengers']['passenger'][] = $passenger->toArray();
+        }
+        return $data;
     }
 
 
@@ -49,5 +69,15 @@ class BookingRequestData implements IApiRequestData
     public function getCustomerPhone(): string
     {
         return $this->customer_phone;
+    }
+
+    public function getFlightsGroup(): array
+    {
+        return $this->flightsGroup;
+    }
+
+    public function setFlightsGroup(array $flightsGroup): void
+    {
+        $this->flightsGroup = $flightsGroup;
     }
 }
