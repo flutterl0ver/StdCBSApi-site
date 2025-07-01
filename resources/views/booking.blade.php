@@ -91,7 +91,7 @@
                                 <label for="citizenship{{ $i }}">Гражданство</label><br>
                                 <select  name="citizenship{{ $i }}">
                                     @foreach ($countries as $country)
-                                        <option value={{ $country->code }} @if ($country->code == 'RUS') selected="selected" @endif>{{ $country->name_ru }}</option>
+                                        <option value={{ $country->code }} @if ($country->code == 'RU') selected="selected" @endif>{{ $country->name_ru }}</option>
                                     @endforeach
                                 </select>
                             </div>
