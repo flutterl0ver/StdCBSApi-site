@@ -142,6 +142,7 @@
             @endfor
         @endforeach
         <input type="hidden" name="passengers_count" value="{{ $i }}">
+        <input type="hidden" name="token" value="{{ session('response')['respond']['token'] }}";
         <div>
             <input class="submit" type="submit">
         </div>

@@ -23,6 +23,7 @@ class BookingRequest extends FormRequest
     {
         $rules = [
             'passengers_count' => 'required|integer|min:1',
+            'token' => 'required|string',
             'customer_phone' => 'required|string',
             'customer_email' => 'required|string'
         ];
