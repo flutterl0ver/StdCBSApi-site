@@ -11,7 +11,7 @@ class BookingRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,32 @@ class BookingRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+        $rules = [
+            'passengers_count' => 'required|integer|min:1',
+            'customer_phone' => 'required|string',
+            'customer_email' => 'required|string'
         ];
+        $this->validate($rules);
+
+        $passengers_count = $this->post('passengers_count');
+        for($i = 0; $i < $passengers_count; $i++)
+        {
+            $rules = array_merge($rules, [
+                'name'.$i => 'required|string',
+                'surname'.$i => 'required|string',
+                'patronymic'.$i => 'nullable|string',
+                'gender'.$i => 'required|string|in:male,female',
+                'birth_date'.$i => 'required|date',
+                'citizenship'.$i => 'required|string',
+                'document_type'.$i => 'required|string',
+                'document_number'.$i => 'required|integer',
+                'document_expire_date'.$i => 'required|date',
+                'passenger_phone'.$i => 'required|string',
+                'no_email'.$i => 'nullable|string',
+                'passenger_email'.$i => 'required_without:no_email'.$i.'|nullable|string'
+            ]);
+        }
+
+        return $rules;
     }
 }

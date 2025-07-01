@@ -35,6 +35,7 @@
     </div>
 
     <form method="post" class="bigform" action="/make-booking">
+        @csrf
         <div>
             <h1>Информация о покупателе</h1><br>
 
@@ -95,10 +96,10 @@
                                 </select>
                             </div>
                             <div>
-                                <label for="document{{ $i }}">Тип документа</label><br>
-                                <select name="document{{ $i }}">
-                                    <option value="ru_passport">Паспорт гражданина РФ</option>
-                                    <option value="ru_travel_passport">Паспорт гражданина РФ</option>
+                                <label for="document_type{{ $i }}">Тип документа</label><br>
+                                <select name="document_type{{ $i }}">
+                                    <option value="ru_passport" selected="selected">Паспорт гражданина РФ</option>
+                                    <option value="ru_travel_passport">Заграничный паспорт РФ</option>
                                     <option value="birth_certificate">Свидетельство о рождении</option>
                                     <option value="foreign_passport">Паспорт иностранного гражданина</option>
                                 </select>
@@ -125,10 +126,10 @@
                                     </div>
                                     <div style="margin-left: 25px; font-size: 0.9em; margin-top: auto">
                                         <div>
-                                            <input type="radio" onclick="DisableEmail({{ $i }})" id="email_refused{{ $i }}" name="no_email{{ $i }}">отказ клиента
+                                            <input type="radio" onclick="DisableEmail({{ $i }})" id="email_refused{{ $i }}" name="no_email{{ $i }}" value="refused">отказ клиента
                                         </div>
                                         <div>
-                                            <input type="radio" onclick="DisableEmail({{ $i }})" id="email_absent{{ $i }}" name="no_email{{ $i }}">нет у клиента
+                                            <input type="radio" onclick="DisableEmail({{ $i }})" id="email_absent{{ $i }}" name="no_email{{ $i }}" value="absent">нет у клиента
                                         </div>
                                     </div>
                                 </div>
@@ -140,6 +141,7 @@
                 <?php $i++; ?>
             @endfor
         @endforeach
+        <input type="hidden" name="passengers_count" value="{{ $i }}">
         <div>
             <input class="submit" type="submit">
         </div>
