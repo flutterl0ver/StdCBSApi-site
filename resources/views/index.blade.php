@@ -100,13 +100,13 @@
 
     <script>
         @if(old('adults'))
-        ChangeAdults({{ old('adults') }});
+            ChangeAdults({{ old('adults') }});
         @endif
         @if(old('children'))
-        ChangeChildren({{ old('children') }});
+            ChangeChildren({{ old('children') }});
         @endif
         @if(old('infants'))
-        ChangeInfants({{ old('infants') }});
+            ChangeInfants({{ old('infants') }});
         @endif
     </script>
 </form>
