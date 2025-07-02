@@ -29,7 +29,7 @@ class BookingController extends Controller
                 $requestData['document_expire_date'.$i],
                 $requestData['passenger_phone'.$i],
                 $requestData['passenger_email'.$i],
-                $requestData['no_email' . $i] ?? null
+                $requestData['no_email'.$i] ?? null
             );
         }
         $data = new BookingRequestData(

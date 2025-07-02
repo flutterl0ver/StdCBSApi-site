@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SelectRequest;
+use App\Http\Requests\SearchRequest;
 use App\Services\DTO\FlightRequestData;
 use App\Services\DTO\SearchData;
 use App\Services\DTO\SearchResultData;
 use App\Services\DTO\SelectResultData;
 use App\Services\SearchService;
+use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
@@ -15,56 +16,53 @@ const CONTEXT_ID = 1;
 
 class SearchController extends Controller
 {
-    public function search(Request $request, SearchService $searchService) : RedirectResponse
+    public function search(SearchRequest $request, SearchService $searchService) : RedirectResponse
     {
-        $rules = [
-            'from' => 'required|string',
-            'to' => 'required|string',
-            'date_to' => 'required|date_format:Y-m-d',
-            'date_from' => 'nullable|date_format:Y-m-d',
-            'adults' => 'required|integer|min:1',
-            'children' => 'required|integer|min:0',
-            'infants' => 'required|integer|min:0',
-        ];
+        $requestData = $request->validated();
 
-        $request->validate($rules);
+        $from = $requestData['from'];
+        $to = $requestData['to'];
 
-        $hasDateFrom = $request->post('hasDateFrom') == 'true';
+        $p_from = strpos($from, '(');
+        $from_code = substr($from, $p_from + 1, strlen($from) - $p_from - 2);
+        $from = substr($from, 0, $p_from);
 
-        $from = trim($request->post('from'));
-        $to = trim($request->post('to'));
+        $p_to = strpos($to, '(');
+        $to_code = substr($to, $p_to + 1, strlen($to) - $p_to - 2);
+        $to = substr($to, 0, $p_to);
 
-        try {
-            $p = strpos($from, '(');
-            $from_code = substr($from, $p + 1, strlen($from) - $p - 2);
-            $from = substr($from, 0, $p);
+        $errors = [];
+        if (!$p_from || $from_code == '' || $from == '') $errors['from'] = 'Неверный формат ввода.';
+        if (!$p_to || $to_code == '' || $to == '') $errors['to'] = 'Неверный формат ввода.';
 
-            $p = strpos($to, '(');
-            $to_code = substr($to, $p + 1, strlen($to) - $p - 2);
-            $to = substr($to, 0, $p);
-        }
-        catch (\Exception)
-        {
-            return redirect('/')->withInput();
-        }
+        if (count($errors) > 0) return redirect('/')->withInput()->withErrors($errors);
 
         $data = new SearchData(
             $from,
             $from_code,
             $to,
             $to_code,
-            $request->post('date_to'),
-            $hasDateFrom ? $request->post('date_from') : null,
-            $request->post('adults'),
-            $request->post('children'),
-            $request->post('infants')
+            $requestData['date_to'],
+            $requestData['date_from'] ?? null,
+            $requestData['adults'],
+            $requestData['children'],
+            $requestData['infants']
         );
 
-        $response = $searchService->search(CONTEXT_ID, $data);
-
-        if(isset($response['respond']) && $response['respond']['token'] != '')
+        try {
+            $response = $searchService->search(CONTEXT_ID, $data);
+        }
+        catch (ConnectionException)
         {
-            return redirect('/flights?token='.$response['respond']['token']);
+            return redirect('/')->withInput()->withErrors(['other' => 'Ошибка соединения. Проверьте интернет-подключение.']);
+        }
+        catch (\Throwable $e)
+        {
+            return redirect('/')->withInput()->withErrors(['other' => 'Что-то пошло не так. Код ошибки: '.$e->getCode()]);
+        }
+
+        if (isset($response['respond']) && $response['respond']['token'] != '') {
+            return redirect('/flights?token=' . $response['respond']['token']);
         }
         return redirect('/')->withInput();
     }
@@ -111,7 +109,7 @@ class SearchController extends Controller
 
         $response = $searchService->selectResult(CONTEXT_ID, $data);
 
-        return redirect("/booking?token={$token}")->with([
+        return redirect("/booking?token={$token}")->withInput()->with([
             'response' => $response
         ]);
     }

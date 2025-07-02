@@ -42,7 +42,8 @@
             <div class="row">
                 <div style="margin-right: 20px">
                     <label for="customer_phone">Номер телефона</label><br>
-                    <input type="text" class="textinput" name="customer_phone">
+                    <input type="text" class="textinput @if ($errors->first('customer_phone')) error @endif" name="customer_phone" value="{{ old('customer_phone') }}">
+                    <t class="error">{{ $errors->first('customer_phone') }}</t>
                 </div>
                 <div>
                     <label for="customer_email">Адрес электронной почты</label><br>
