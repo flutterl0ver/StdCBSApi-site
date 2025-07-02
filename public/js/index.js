@@ -117,7 +117,7 @@ function ShowAirports(id, airports) {
         let airportName = airport['city'] + '(' + airport['code'] + ')';
         airportsText += '<div class="search-row" onmousedown="SetAirport(\'' + id + '\', \'' + airportName +
             '\')"><div class="code">' + airport['code'] +
-            '</div><t>' + airport['city'] + '</t><br><t class="country">' + airport['country'] + '</t></div>';
+            '</div>' + airport['city'] + '<br><span class="country">' + airport['country'] + '</span></div>';
     }
     document.getElementById('airports_' + id).innerHTML = airportsText;
 }
