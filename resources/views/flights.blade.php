@@ -22,7 +22,7 @@
             $flights = session('response')['respond']['flightsGroup']['flightGroup'];
             ?>
 
-        @include('components.flights-table');
+        @include('components.flights-table')
     </div>
 
     <h3 id="uptHeader" style="display: none">Просмотр УПТ перелёта</h3>

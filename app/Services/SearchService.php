@@ -7,6 +7,7 @@ use App\Models\SelectRequest;
 use App\Providers\SearchProvider;
 use App\Services\DTO\FlightRequestData;
 use App\Services\DTO\SelectResultData;
+use Symfony\Component\ErrorHandler\Error\FatalError;
 use function Laravel\Prompts\search;
 
 class SearchService
@@ -26,13 +27,26 @@ class SearchService
     {
         $response = $this->search($contextId, $request);
 
-        $bookingRequest = new SelectRequest();
-        $bookingRequest->context_id = $contextId;
-        $bookingRequest->search_token = $request->getData()['token'];
-        $bookingRequest->request = json_encode($request->toArray());
-        $bookingRequest->request_token = $response ? $response['respond']['token'] : null;
-        $bookingRequest->status = 0;
-        $bookingRequest->save();
+        $selectRequest = new SelectRequest();
+        $selectRequest->context_id = $contextId;
+        $selectRequest->search_token = $request->getData()['token'];
+        $selectRequest->request = json_encode($request->toArray());
+        $selectRequest->status = 0;
+
+        if(!$response)
+        {
+            $selectRequest->errors = 'RESPONSE IS NULL';
+        }
+        else if($response['respond']['token'] != '')
+        {
+            $selectRequest->request_token = $response['respond']['token'];
+        }
+        else
+        {
+            $selectRequest->errors = json_encode($response['respond']['messages']['message']);
+        }
+
+        $selectRequest->save();
 
         return $response;
     }
@@ -41,9 +55,9 @@ class SearchService
     {
         $response = $this->search($contextId, $request);
 
-        $bookingRequest = SelectRequest::where('request_token', $request->getToken())->first();
-        $bookingRequest->response = json_encode($response);
-        $bookingRequest->save();
+        $selectRequest = SelectRequest::where('request_token', $request->getToken())->first();
+        $selectRequest->response = json_encode($response);
+        $selectRequest->save();
 
         return $response;
     }
