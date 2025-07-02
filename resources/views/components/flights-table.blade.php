@@ -175,7 +175,7 @@ $i = 0;
                         @endforeach
                     @endforeach
                 </table>
-                <t>Расписание стоимости</t>
+                <span>Расписание стоимости</span>
                 <table class="cost">
                     <tr>
                         <th>тип пассажира</th>

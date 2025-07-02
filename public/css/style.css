@@ -103,14 +103,14 @@ button.btn-link:hover {
 input.error {
     border-color: red;
 }
-t.error {
+span.error {
     color: red;
     font-size: 0.8em;
 }
 h2 a.active {
     color: white;
 }
-t.loaderText {
+span.loaderText {
     display: none;
     text-align: center;
     font-size: 1.2em;

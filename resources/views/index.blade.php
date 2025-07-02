@@ -18,7 +18,7 @@
     <script src="{{ asset('js/index.js') }}"></script>
 </head>
 <body>
-<t class="loaderText" id="loaderText">Выполняется поиск...</t>
+<span class="loaderText" id="loaderText">Выполняется поиск...</span>
 <span class="loader" id="loader"></span>
 <form method="POST" action="/search" id="form" onsubmit="startSearching()">
     @csrf
@@ -29,7 +29,7 @@
                    onfocusin="SwitchAirports('from', 'block')" onfocusout="SwitchAirports('from', 'none')"
                    oninput="SearchAirports('from')" value="{{ old('from') }}">
             <div class="airports" id="airports_from"></div>
-            <t class="error">{{ $errors->first('from') }}</t>
+            <span class="error">{{ $errors->first('from') }}</span>
         </div>
         <button class="switch" type="button" onclick="SwapPlaces()"></button>
         <div class="to">
@@ -38,13 +38,13 @@
                    onfocusin="SwitchAirports('to', 'block')" onfocusout="SwitchAirports('to', 'none')"
                    oninput="SearchAirports('to')" value="{{ old('to') }}">
             <div class="airports" id="airports_to"></div>
-            <t class="error">{{ $errors->first('to') }}</t>
+            <span class="error">{{ $errors->first('to') }}</span>
         </div>
         <div class="date_to">
             <label for="date_to">Дата вылета</label>
             <input type="date" name="date_to" id="date_to" class="textinput @if($errors->first('date_to')) error @endif"
                    value="{{ old('date_to') == null ? date('Y-m-d') : old('date_to') }}">
-            <t class="error">{{ $errors->first('date_to') }}</t>
+            <span class="error">{{ $errors->first('date_to') }}</span>
         </div>
         <div class="date_from" id="date_from_div"
              style="display: @if (old('hasDateFrom') == 'true') block @else none @endif">
@@ -53,7 +53,7 @@
             <br>
             <input type="date" name="date_from" id="date_from" class="textinput  @if($errors->first('date_from')) error @endif"
                    value="{{ old('date_from') == null ? date('Y-m-d') : old('date_from') }}">
-            <t class="error">{{ $errors->first('date_from') }}</t>
+            <span class="error">{{ $errors->first('date_from') }}</span>
         </div>
         <button class="date_from" type="button" id="date_from_button" onclick="SwitchDateFrom()"
                 style="display: @if (old('hasDateFrom') != 'true') inline-block @else none @endif">Обратно
@@ -90,7 +90,7 @@
             <input type="submit" class="submit" value="Начать поиск">
         </div>
     </div>
-    <t class="error">{{ $errors->first('other') }}</t>
+    <span class="error">{{ $errors->first('other') }}</span>
 
     <input type="hidden" name="has_date_from" id="hasDateFrom" value="{{ old('has_date_from') }}">
 

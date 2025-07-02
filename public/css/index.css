@@ -141,7 +141,7 @@ div.search-row:hover {
     cursor: pointer;
     background-color: var(--border-color);
 }
-div.search-row t.country {
+div.search-row span.country {
     font-size: 0.8em;
     color: grey;
 }

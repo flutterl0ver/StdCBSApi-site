@@ -34,7 +34,7 @@ td {
 td.moreinfo {
     width: 100%;
 }
-td.moreinfo t {
+td.moreinfo span {
     display: block;
     text-align: center;
 }

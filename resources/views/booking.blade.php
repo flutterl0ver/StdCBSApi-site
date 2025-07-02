@@ -29,7 +29,7 @@
     <h3 id="uptHeader" style="display: none">Просмотр УПТ перелёта</h3>
     <div style="display: none" id="upt_div">
         <button onclick="CloseUpt()">Назад</button>
-        <t class="loaderText" id="uptLoaderText">Загрузка УПТ перелёта...</t>
+        <span class="loaderText" id="uptLoaderText">Загрузка УПТ перелёта...</span>
         <span class="loader" id="uptLoader"></span>
         <div id="upt_content"></div>
     </div>
@@ -43,7 +43,7 @@
                 <div style="margin-right: 20px">
                     <label for="customer_phone">Номер телефона</label><br>
                     <input type="text" class="textinput @if ($errors->first('customer_phone')) error @endif" name="customer_phone" value="{{ old('customer_phone') }}">
-                    <t class="error">{{ $errors->first('customer_phone') }}</t>
+                    <span class="error">{{ $errors->first('customer_phone') }}</span>
                 </div>
                 <div>
                     <label for="customer_email">Адрес электронной почты</label><br>
@@ -150,7 +150,7 @@
         </div>
     </form>
 @else
-    <t class="loaderText" id="loaderText">Загрузка данных перелёта...</t>
+    <span class="loaderText" id="loaderText">Загрузка данных перелёта...</span>
     <span class="loader" id="loader"></span>
     <form method="POST" action="/select-result" id="form" onsubmit="startSearching()">
         @csrf

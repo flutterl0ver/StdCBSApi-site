@@ -10,7 +10,7 @@
 </head>
 <body>
 @if (session('response') && session('response')['respond']['token'] != '')
-    <t class="loaderText" id="selectLoaderText">Загрузка данных перелёта...</t>
+    <span class="loaderText" id="selectLoaderText">Загрузка данных перелёта...</span>
     <span class="loader" id="selectLoader"></span>
     <script>
         const response = JSON.parse('{!! json_encode(session('response'), JSON_UNESCAPED_UNICODE) !!}');
@@ -28,12 +28,12 @@
     <h3 id="uptHeader" style="display: none">Просмотр УПТ перелёта</h3>
     <div style="display: none" id="upt_div">
         <button onclick="CloseUpt()">Назад</button>
-        <t class="loaderText" id="uptLoaderText">Загрузка УПТ перелёта...</t>
+        <span class="loaderText" id="uptLoaderText">Загрузка УПТ перелёта...</span>
         <span class="loader" id="uptLoader"></span>
         <div id="upt_content"></div>
     </div>
 @else
-    <t class="loaderText" id="loaderText">Загрузка перелётов...</t>
+    <span class="loaderText" id="loaderText">Загрузка перелётов...</span>
     <span class="loader" id="loader"></span>
     <form method="POST" action="/search-result" id="form" onsubmit="startSearching()">
         @csrf
