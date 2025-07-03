@@ -10,7 +10,7 @@ use Illuminate\Http\RedirectResponse;
 
 class BookingController extends Controller
 {
-    public function __invoke(BookingRequest $request, BookingService $bookingService): RedirectResponse
+    public function __invoke(BookingRequest $request, BookingService $bookingService): RedirectResponse | array
     {
         $requestData = $request->validated();
 
@@ -29,7 +29,7 @@ class BookingController extends Controller
                 $requestData['document_number'.$i],
                 $requestData['document_expire_date'.$i],
                 $requestData['passenger_phone'.$i],
-                $requestData['passenger_email'.$i],
+                $requestData['passenger_email'.$i] ?? null,
                 $requestData['no_email'.$i] ?? null
             );
         }
@@ -41,6 +41,12 @@ class BookingController extends Controller
         );
 
         $response = $bookingService->createBooking($data);
+
+        if(!$response || $response['respond']['token'] == '')
+        {
+            return ['request' => $data->toArray(), 'response' => $response];
+        }
+
         return redirect('/order?token='.$response['respond']['token']);
     }
 }

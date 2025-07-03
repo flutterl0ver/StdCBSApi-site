@@ -27,9 +27,9 @@ class SearchRequest extends FormRequest
             'adults' => ['required', 'integer', 'min:1'],
             'children' => ['required', 'integer', 'min:0'],
             'infants' => ['required', 'integer', 'min:0'],
-            'has_date_from' => ['nullable'],
+            'has_date_from' => ['nullable', 'string'],
             'date_to' => ['required', 'date', 'date_format:Y-m-d', 'after_or_equal:today'],
-            'date_from' => ['nullable', 'required_if:has_date_from, true', 'exclude_unless:has_date_from, true', 'date', 'date_format:Y-m-d', 'after_or_equal:date_to']
+            'date_from' => ['nullable', 'required_if:has_date_from,true', 'exclude_unless:has_date_from,true', 'date', 'date_format:Y-m-d', 'after_or_equal:date_to']
         ];
     }
 

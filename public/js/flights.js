@@ -5,6 +5,7 @@ function SendSelectRequest(flightId) {
     document.getElementById('header').style.display = 'none';
 
     const request = GetFlightRequest(flightId, 'SELECTFLIGHT');
+    console.log(request);
     $.post('/select',
         { 'data': JSON.stringify(request) },
         function(response)
@@ -14,6 +15,7 @@ function SendSelectRequest(flightId) {
                 window.location.replace('/booking?token=' + response['respond']['token']);
                 return;
             }
+            console.log(response);
 
             document.getElementById('selectLoader').style.display = 'none';
             document.getElementById('selectLoaderText').style.display = 'none';

@@ -22,7 +22,7 @@
         <div class="table" id="table_div">
             <?php
                 $bookingFile = session('response')['respond']['bookingFile'];
-                $flights = $bookingFile['reservations']['reservation'][0]['products']['airTicket'];
+                $flights = [$bookingFile['reservations']['reservation'][0]['products']['airTicket'][0]];
                 $buttons = false;
                 $i = 0;
                 $countries = \App\Models\Country::select('code', 'name_ru')->get();

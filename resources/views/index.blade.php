@@ -54,6 +54,7 @@
             <input type="date" name="date_from" id="date_from" class="textinput  @if($errors->first('date_from')) error @endif"
                    value="{{ old('date_from') == null ? date('Y-m-d') : old('date_from') }}">
             <span class="error">{{ $errors->first('date_from') }}</span>
+            <input type="hidden" name="has_date_from" id="hasDateFrom">
         </div>
         <button class="date_from" type="button" id="date_from_button" onclick="SwitchDateFrom()"
                 style="display: @if (old('hasDateFrom') != 'true') inline-block @else none @endif">Обратно
@@ -92,8 +93,6 @@
     </div>
     <span class="error">{{ $errors->first('other') }}</span>
 
-    <input type="hidden" name="has_date_from" id="hasDateFrom" value="{{ old('has_date_from') }}">
-
     <input type="hidden" name="adults" id="adults" value="1">
     <input type="hidden" name="children" id="children" value="0">
     <input type="hidden" name="infants" id="infants" value="0">
@@ -107,6 +106,9 @@
         @endif
         @if(old('infants'))
             ChangeInfants({{ old('infants') }});
+        @endif
+        @if(old('has_date_from') == 'true')
+            SwitchDateFrom();
         @endif
     </script>
 </form>

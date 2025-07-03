@@ -16,7 +16,7 @@ const CONTEXT_ID = 1;
 
 class SearchController extends Controller
 {
-    public function search(SearchRequest $request, SearchService $searchService) : RedirectResponse
+    public function search(SearchRequest $request, SearchService $searchService)
     {
         $requestData = $request->validated();
 
