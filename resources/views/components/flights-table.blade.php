@@ -124,9 +124,10 @@ $i = 0;
         <tr <?php if ($i % 2 == 1) echo 'class="dark"' ?>>
             <td class="moreinfo" id="moreinfo{{ $i }}" colspan="7" style="display: none">
                 <table class="path">
+                    <?php $itineraryToken = 1 ?>
                     @foreach($flightData['itineraries']['itinerary'] as $itinerary)
                         <tr>
-                            <th>Участок {{ $itinerary['token'] + 1 }}</th>
+                            <th>Участок {{ $itineraryToken }}</th>
                             <th colspan="4">
                                     <?php
                                     $firstSegment = $itinerary['flights']['flight'][0]['segments']['segment'][0];
@@ -173,6 +174,7 @@ $i = 0;
                                 </tr>
                             @endforeach
                         @endforeach
+                        <?php $itineraryToken++; ?>
                     @endforeach
                 </table>
                 Расписание стоимости

@@ -29,14 +29,10 @@ class ContextService
         ];
     }
 
-    public function getContextIdByOrder(string $orderToken) : int
+    public function getContextIdByOrder(string $orderToken) : ?int
     {
         $bookingRequest = BookingRequest::where('request_token', $orderToken)->first();
-        if (!$bookingRequest)
-        {
-            throw new \Exception('Несуществующий токен заказа.');
-        }
 
-        return $bookingRequest->context_id;
+        return $bookingRequest? $bookingRequest->context_id : null;
     }
 }
