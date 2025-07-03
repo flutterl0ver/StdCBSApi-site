@@ -19,11 +19,13 @@ class BookingRequestData implements IApiRequestData
         $this->customer_email = $customer_email;
         $this->token = $token;
         $this->passengers = $passengers;
+
+        $this->customer_phone = str_replace(['-', '(', ')', '+', ' '], '', $this->customer_phone);
     }
 
     public function getCommand(): string
     {
-        return 'CREATEBOOKING';
+        return 'CREATEBR';
     }
 
     public function toArray(): array
@@ -35,9 +37,9 @@ class BookingRequestData implements IApiRequestData
             "customer" => [
                 "name" => $firstPassenger->getSurname().' '.$firstPassenger->getName().' '.$firstPassenger->getPatronymic(),
                 "email" => $this->customer_email,
-                "countryCode" => "1",
-                "areaCode" => "231",
-                "phoneNumber" => $this->customer_phone
+                "countryCode" => $this->customer_phone[0],
+                "areaCode" => substr($this->customer_phone, 1, 3),
+                "phoneNumber" => substr($this->customer_phone, 4, strlen($this->customer_phone) - 4)
             ],
             "passengers" => [
                 "passenger" => []

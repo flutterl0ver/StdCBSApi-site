@@ -2,13 +2,13 @@
 
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <?php $page = 'booking' ?>
+    <?php $page = 'order' ?>
     @include('components.head')
 
-    <title>Выбор перелёта</title>
-    <link rel="stylesheet" href="{{ asset('css/booking.css') }}">
+    <title>Действия над заказом</title>
+    <link rel="stylesheet" href="{{ asset('css/order.css') }}">
 
-    <script src="{{ asset('js/booking.js') }}"></script>
+    <script src="{{ asset('js/order.js') }}"></script>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
         </script>
         <h3 id="header">Бронирование перелёта</h3>
         <div class="table" id="table_div">
-            <?php
+                <?php
                 $flights = session('response')['respond']['flightsGroup']['flightGroup'];
                 ?>
 
@@ -52,10 +52,10 @@
                 </div>
                 <hr>
             </div>
-            <?php
+                <?php
                 $i = 0;
                 $countries = \App\Models\Country::select('code', 'name_ru')->get();
-            ?>
+                ?>
             @foreach ($flights[0]['fares']['fareSeats']['fareSeat'] as $seat)
                 @for ($j = 0; $j < $seat['count']; $j++)
                     <div>
@@ -140,7 +140,7 @@
                         <hr>
                     </div>
                     <input type="hidden" name="passenger_type{{ $i }}" value="{{ $seat['passengerType'] }}">
-                    <?php $i++; ?>
+                        <?php $i++; ?>
                 @endfor
             @endforeach
             <input type="hidden" name="passengers_count" value="{{ $i }}">

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'index');
 Route::view('/flights', 'flights');
 Route::view('/booking', 'booking');
+Route::view('/order', 'order');
 
 Route::post('/search', [SearchController::class, 'search']);
 Route::post('/search-result', [SearchController::class, 'searchResult']);

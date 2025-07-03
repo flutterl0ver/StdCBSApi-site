@@ -35,6 +35,8 @@ class PassengerData
         $this->phone = $phone;
         $this->email = $email;
         $this->no_email_status = $no_email_status;
+
+        $this->phone = str_replace(['-', '(', ')', '+', ' '], '', $this->phone);
     }
 
     public function toArray(): array
@@ -49,17 +51,17 @@ class PassengerData
                     "name" => Country::where('code', $this->citizenship)->first()->name_en
                 ],
                 "issued" => "",
-                "expired" => $this->document_expire_date,
+                "expired" => $this->document_expire_date.'T00:00+00:00',
                 "number" => $this->document_number,
                 "type" => "INTERNAL",
-                "birthday" => $this->birth_date,
+                "birthday" => $this->birth_date.'T00:00+00:00',
                 "gender" => strtoupper($this->gender)
             ],
             "type" => $this->type,
             "phoneType" => "HOME_PHONE",
-            "phoneNumber" => $this->phone,
-            "countryCode" => "1",
-            "areaCode" => "231",
+            "phoneNumber" => substr($this->phone, 4, strlen($this->phone) - 4),
+            "countryCode" => $this->phone[0],
+            "areaCode" => substr($this->phone, 1, 3),
             "email" => $this->email ?? "",
             "isEmailRefused" => $this->no_email_status == "refused",
             "isEmailAbsent" => $this->no_email_status == "absent",
