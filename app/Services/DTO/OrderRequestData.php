@@ -4,7 +4,7 @@ namespace App\Services\DTO;
 
 use App\Interfaces\IApiRequestData;
 
-class OrderRequestsData implements IApiRequestData
+class OrderRequestData implements IApiRequestData
 {
     private string $command;
     private string $token;

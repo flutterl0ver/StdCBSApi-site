@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AirportsController;
 use App\Http\Controllers\BookingController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,5 +17,7 @@ Route::post('/select', [SearchController::class, 'select']);
 Route::post('/select-result', [SearchController::class, 'selectResult']);
 Route::post('/get-flight-data', [SearchController::class, 'getFlightData']);
 Route::post('/make-booking', BookingController::class);
+Route::post('/get-order-data', [OrderController::class, 'getOrderData']);
+Route::post('/display-order', [OrderController::class, 'displayOrder']);
 
 Route::get('/search-airports', AirportsController::class);

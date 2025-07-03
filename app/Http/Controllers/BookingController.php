@@ -6,10 +6,11 @@ use App\Http\Requests\BookingRequest;
 use App\Services\BookingService;
 use App\Services\DTO\BookingRequestData;
 use App\Services\DTO\PassengerData;
+use Illuminate\Http\RedirectResponse;
 
 class BookingController extends Controller
 {
-    public function __invoke(BookingRequest $request, BookingService $bookingService)
+    public function __invoke(BookingRequest $request, BookingService $bookingService): RedirectResponse
     {
         $requestData = $request->validated();
 
@@ -39,6 +40,7 @@ class BookingController extends Controller
             $passengers
         );
 
-        return json_encode($bookingService->createBooking($data), JSON_UNESCAPED_UNICODE);
+        $response = $bookingService->createBooking($data);
+        return redirect('/order?token='.$response['respond']['token']);
     }
 }

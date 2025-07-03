@@ -6,7 +6,7 @@ use App\Models\BookingRequest;
 use App\Models\SelectRequest;
 use App\Providers\SearchProvider;
 use App\Services\DTO\BookingRequestData;
-use App\Services\DTO\OrderRequestsData;
+use App\Services\DTO\OrderRequestData;
 
 class BookingService
 {
@@ -42,7 +42,6 @@ class BookingService
         }
 
         $bookingRequest->save();
-        $a = new OrderRequestsData('DISPLAYORDER', $response['respond']['token']);
-        return $searchProvider->constructRequest($selectRequest->context_id, $a);
+        return $response;
     }
 }

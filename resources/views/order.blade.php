@@ -14,14 +14,13 @@
 <body>
     @if (session('response') && session('response')['respond']['token'] != '')
         <script>
-            const response = JSON.parse('{!! json_encode(session('response'), JSON_UNESCAPED_UNICODE) !!}');
             const token = '{{ session('response')['respond']['token'] }}';
         </script>
         <h3 id="header">Бронирование перелёта</h3>
         <div class="table" id="table_div">
-                <?php
+            <?php
                 $flights = session('response')['respond']['flightsGroup']['flightGroup'];
-                ?>
+            ?>
 
             @include('components.flights-table')
         </div>
@@ -152,16 +151,16 @@
     @else
         <span class="loaderText" id="loaderText">Загрузка данных перелёта...</span>
         <span class="loader" id="loader"></span>
-        <form method="POST" action="/select-result" id="form" onsubmit="startSearching()">
+        <form method="POST" action="/display-order" id="form" onsubmit="startSearching()">
             @csrf
-            <label for="token">Получить результаты выбора по токену</label><br>
+            <label for="token">Получить данные заказа по токену</label><br>
             <div>
                 <input type="text" autocomplete="off" name="token" id="token" class="textinput"
                        value="{{ request()->query('token') }}">
                 <input type="submit" class="submit" value="Запросить">
             </div>
         </form>
-        @if(request()->query('token'))
+        @if(request()->query('token') && false)
             <script>
                 startSearching();
                 document.getElementById('form').submit();

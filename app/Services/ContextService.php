@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\BookingRequest;
 use App\Services\DTO\ApiInfo;
 
 class ContextService
@@ -26,5 +27,16 @@ class ContextService
             'locale' => 'ru',
             'command' => $command
         ];
+    }
+
+    public function getContextIdByOrder(string $orderToken) : int
+    {
+        $bookingRequest = BookingRequest::where('request_token', $orderToken)->first();
+        if (!$bookingRequest)
+        {
+            throw new \Exception('Несуществующий токен заказа.');
+        }
+
+        return $bookingRequest->context_id;
     }
 }
