@@ -23,7 +23,8 @@ function SendUptRequest(flightId) {
         {
             document.getElementById('uptLoader').style.display = 'none';
             document.getElementById('uptLoaderText').style.display = 'none';
-            const remarkGroups = data['respond']['remarkGroups']['remarkGroup']
+            console.log(data);
+            const remarkGroups = data['respond']['remarkGroups']['remarkGroup'];
             for(let i = 0; i < remarkGroups.length; i++)
             {
                 const remarkGroup = remarkGroups[i];

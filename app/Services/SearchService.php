@@ -51,11 +51,13 @@ class SearchService
         return $response;
     }
 
-    public function selectResult(int $contextId, SelectResultData $request) : array
+    public function selectResult(int $contextId, SelectResultData $request) : ?array
     {
         $response = $this->search($contextId, $request);
 
         $selectRequest = SelectRequest::where('request_token', $request->getToken())->first();
+        if(!$selectRequest) return null;
+
         $selectRequest->response = json_encode($response);
         $selectRequest->save();
 

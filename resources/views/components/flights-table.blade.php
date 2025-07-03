@@ -229,11 +229,13 @@ $i = 0;
                     @endif
                 </table>
                 <div>
-                    @if(false)
-                        <button class="sendreq" onclick="SendSubClassesRequest({{ $i }})">Запрос подклассов</button>
+                    @if (!isset($buttons) || $buttons)
+                        @if(false)
+                            <button class="sendreq" onclick="SendSubClassesRequest({{ $i }})">Запрос подклассов</button>
+                       @endif
+                        <button class="sendreq" onclick="SendUptRequest({{ $i }})">Получить УПТ</button>
+                        <button class="select right" onclick="SendSelectRequest({{ $i }})">Отправить запрос выбора</button>
                     @endif
-                    <button class="sendreq" onclick="SendUptRequest({{ $i }})">Получить УПТ</button>
-                    <button class="select right" onclick="SendSelectRequest({{ $i }})">Отправить запрос выбора</button>
                 </div>
             </td>
         </tr>

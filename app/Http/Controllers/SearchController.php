@@ -74,6 +74,10 @@ class SearchController extends Controller
         $data = new SearchResultData($token);
 
         $response = $searchService->search(CONTEXT_ID, $data);
+        if (!$response || $response['respond']['token'] == '')
+        {
+            return redirect('/flights')->withInput()->withErrors(['error' => 'Перелёты не найдены. Проверьте корректность токена.']);
+        }
 
         return redirect("/flights?token={$token}")->with([
             'response' => $response
@@ -108,6 +112,10 @@ class SearchController extends Controller
         $data = new SelectResultData($token);
 
         $response = $searchService->selectResult(CONTEXT_ID, $data);
+        if(!$response || $response['respond']['token'] == '')
+        {
+            return redirect('/booking')->withInput()->withErrors(['error' => 'Перелёт не найден. Проверьте корректность токена.']);
+        }
 
         return redirect("/booking?token={$token}")->withInput()->with([
             'response' => $response

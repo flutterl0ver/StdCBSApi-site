@@ -21,6 +21,7 @@
         <div class="table" id="table_div">
             <?php
                 $flights = session('response')['respond']['flightsGroup']['flightGroup'];
+                $buttons = false;
                 ?>
 
             @include('components.flights-table')
@@ -157,9 +158,10 @@
             <label for="token">Получить результаты выбора по токену</label><br>
             <div>
                 <input type="text" autocomplete="off" name="token" id="token" class="textinput"
-                       value="{{ request()->query('token') }}">
+                       value="{{ request()->query('token') ?? old('token') }}">
                 <input type="submit" class="submit" value="Запросить">
             </div>
+            <span class="error">{{ $errors->first('error') }}</span>
         </form>
         @if(request()->query('token'))
             <script>
