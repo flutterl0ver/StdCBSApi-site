@@ -43,7 +43,7 @@ class SearchService
         }
         else
         {
-            $selectRequest->errors = json_encode($response['respond']['messages']['message']);
+            $selectRequest->errors = json_encode($response['respond'], JSON_UNESCAPED_UNICODE);
         }
 
         $selectRequest->save();

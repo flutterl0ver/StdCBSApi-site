@@ -37,7 +37,7 @@ class BookingService
         }
         else
         {
-            $bookingRequest->errors = json_encode($response['respond']['messages']['message']);
+            $bookingRequest->errors = json_encode($response['respond'], JSON_UNESCAPED_UNICODE);
         }
 
         $bookingRequest->save();
