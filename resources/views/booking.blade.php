@@ -100,10 +100,10 @@
                                 <div>
                                     <label for="document_type{{ $i }}">Тип документа</label><br>
                                     <select name="document_type{{ $i }}">
-                                        <option value="ru_passport" selected="selected">Паспорт гражданина РФ</option>
-                                        <option value="ru_travel_passport">Заграничный паспорт РФ</option>
-                                        <option value="birth_certificate">Свидетельство о рождении</option>
-                                        <option value="foreign_passport">Паспорт иностранного гражданина</option>
+                                        <option value="INTERNAL" selected="selected">Паспорт гражданина РФ</option>
+                                        <option value="FOREIGN">Заграничный паспорт РФ</option>
+                                        <option value="BIRTHDAY_NOTIFICATION">Свидетельство о рождении</option>
+                                        <option value="PASSPORT">Паспорт иностранного гражданина</option>
                                     </select>
                                 </div>
                                 <div>

@@ -21,11 +21,40 @@
 
         <div class="table" id="table_div">
             <?php
-                $flights = session('response')['respond']['bookingFile']['reservations']['reservation'][0]['products']['airTicket'];
+                $bookingFile = session('response')['respond']['bookingFile'];
+                $flights = $bookingFile['reservations']['reservation'][0]['products']['airTicket'];
                 $buttons = false;
+                $i = 0;
+                $countries = \App\Models\Country::select('code', 'name_ru')->get();
             ?>
 
             @include ('components.flights-table')
+        </div>
+        <div class="info">
+            @foreach ($bookingFile['reservations']['reservation'][0]['products']['airTicket'] as $ticket)
+                <?php $passenger = $ticket['passenger'] ?>
+                <div>
+                    <h1>Пассажир №{{ $i + 1 }} ({{ match($passenger['type']) { "ADULT" => 'Взрослый', "CHILD" => "Ребёнок", "INFANT" => "Младенец" } }})</h1><br>
+                    <div class="column">
+                        <div>ФИО: {{ $passenger['passport']['lastName'] }} {{ $passenger['passport']['firstName'] }} {{ $passenger['passport']['middleName'] }}</div>
+                        <div>Пол: {{ match($passenger['passport']['gender']) { "MALE" => 'Мужской', "FEMALE" => 'Женский' } }}</div>
+                        <div>Дата рождения: <?php
+                                                $datetime = DateTime::createFromFormat('Y-m-d\TH:i:s', $passenger['passport']['birthday']);
+                                                echo $datetime->format('d.m.Y');
+                                                ?></div>
+                        <div>Номер телефона: {{ $passenger['countryCode'] }} ({{ $passenger['areaCode'] }}) {{ $passenger['phoneNumber'] }}</div>
+                        <div>Email: <?php
+                                        $refused = $passenger['isEmailRefused'];
+                                        $absent = $passenger['isEmailAbsent'];
+                                        if($refused) echo 'Отказ';
+                                        else if($absent) echo 'Нет';
+                                        else echo strtolower($passenger['email']);
+                                        ?></div>
+                    </div>
+                    <hr>
+                </div>
+                <?php $i++; ?>
+            @endforeach
         </div>
     @else
         <span class="loaderText" id="loaderText">Загрузка данных бронирования...</span>

@@ -21,3 +21,15 @@ form#form input.submit {
     border-width: 1px 1px 1px 0;
     font-size: 18px;
 }
+div.info {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: var(--body-color);
+    border: solid 1px var(--border-color);
+    border-radius: 5px;
+    transition-duration: 0.2s;
+}
+h1 {
+    font-size: 1.2em;
+    margin: 0;
+}

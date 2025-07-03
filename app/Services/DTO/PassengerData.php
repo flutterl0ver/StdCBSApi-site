@@ -53,9 +53,9 @@ class PassengerData
                 "issued" => "",
                 "expired" => $this->document_expire_date.'T00:00+00:00',
                 "number" => $this->document_number,
-                "type" => "INTERNAL",
+                "type" => $this->document_type,
                 "birthday" => $this->birth_date.'T00:00+00:00',
-                "gender" => strtoupper($this->gender)
+                "gender" => $this->gender
             ],
             "type" => $this->type,
             "phoneType" => "HOME_PHONE",
