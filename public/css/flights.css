@@ -21,3 +21,12 @@ input.submit {
     border-width: 1px 1px 1px 0;
     font-size: 18px;
 }
+div.table {
+    background-color: var(--body-color);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    margin: 10px auto;
+    padding: 20px;
+    width: 80%;
+    transition-duration: 0.2s;
+}

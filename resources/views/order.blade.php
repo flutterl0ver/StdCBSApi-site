@@ -12,16 +12,27 @@
 </head>
 
 <body>
-    @if (session('response') && session('response')['respond']['token'] != '')
+    @if (session('response') && ['token'] != '')
+        <?php $response = session('response')['respond']; ?>
         <script>
-            const token = '{{ session('response')['respond']['token'] }}';
+            const token = '{{ $response['token'] }}';
         </script>
+        <h3>Заказ №{{ $response['token'] }}</h3>
+        @if ($response['bookingFile']['status'] == 'CANCELLED')
+            <h3 class="cancelled">(отменён)</h3>
+        @else
+            <span class="loaderText" id="loaderText">Отмена заказа...</span>
+            <span class="loader" id="loader"></span>
 
-        <h3>Заказ №{{ session('response')['respond']['token'] }}</h3>
+            <div id="deletedDiv" style="display: none">
+                <h3>Заказ успешно отменён.</h3>
+                <a class="back" href="/"><button class="back">На главную</button></a>
+            </div>
+        @endif
 
         <div class="table" id="table_div">
             <?php
-                $bookingFile = session('response')['respond']['bookingFile'];
+                $bookingFile = $response['bookingFile'];
                 $flights = [$bookingFile['reservations']['reservation'][0]['products']['airTicket'][0]];
                 $buttons = false;
                 $i = 0;
@@ -30,7 +41,7 @@
 
             @include ('components.flights-table')
         </div>
-        <div class="info">
+        <div class="info" id="info">
             @foreach ($bookingFile['reservations']['reservation'][0]['products']['airTicket'] as $ticket)
                 <?php $passenger = $ticket['passenger'] ?>
                 <div>
@@ -55,6 +66,10 @@
                 </div>
                 <?php $i++; ?>
             @endforeach
+            @if ($response['bookingFile']['status'] != 'CANCELLED')
+                <button class="submit red" onclick="cancelBooking()">Отменить заказ</button><br>
+            @endif
+            <span class="error" id="errorText"></span>
         </div>
     @else
         <span class="loaderText" id="loaderText">Загрузка данных бронирования...</span>

@@ -94,7 +94,9 @@ $i = 0;
 
 <link rel="stylesheet" href="{{ asset('css/flights-table.css') }}">
 <script>
-    const flights = response['respond']['flightsGroup']['flightGroup'];
+    let flights;
+    if(typeof response === 'undefined') flights = [];
+    else flights = response['respond']['flightsGroup']['flightGroup'];
 </script>
 <script src="{{ asset('js/flights-table.js') }}"></script>
 <table>
