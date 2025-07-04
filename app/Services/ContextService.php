@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
+use App\DTO\ApiInfo;
 use App\Models\BookingRequest;
-use App\Services\DTO\ApiInfo;
 
 class ContextService
 {

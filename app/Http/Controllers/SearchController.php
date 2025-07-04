@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\FlightRequestData;
+use App\DTO\SearchData;
+use App\DTO\SearchResultData;
+use App\DTO\SelectResultData;
 use App\Http\Requests\SearchRequest;
-use App\Services\DTO\FlightRequestData;
-use App\Services\DTO\SearchData;
-use App\Services\DTO\SearchResultData;
-use App\Services\DTO\SelectResultData;
 use App\Services\SearchService;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\RedirectResponse;

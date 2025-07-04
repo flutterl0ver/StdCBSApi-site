@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\BookingRequest;
+use App\DTO\OrderRequestData;
 use App\Services\BookingService;
 use App\Services\ContextService;
-use App\Services\DTO\OrderRequestData;
 use App\Services\SearchService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;

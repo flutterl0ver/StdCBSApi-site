@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\DTO;
+namespace App\DTO;
 
 use App\Models\Country;
 

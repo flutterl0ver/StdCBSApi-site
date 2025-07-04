@@ -2,14 +2,14 @@
 
 namespace App\Services;
 
+use App\DTO\FlightRequestData;
+use App\DTO\SearchData;
+use App\DTO\SearchResultData;
+use App\DTO\SelectResultData;
 use App\Interfaces\IApiRequestData;
 use App\Models\SearchRequest;
 use App\Models\SelectRequest;
 use App\Providers\SearchProvider;
-use App\Services\DTO\FlightRequestData;
-use App\Services\DTO\SearchData;
-use App\Services\DTO\SearchResultData;
-use App\Services\DTO\SelectResultData;
 
 class SearchService
 {

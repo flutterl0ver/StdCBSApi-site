@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\DTO\BookingRequestData;
+use App\DTO\PassengerData;
 use App\Http\Requests\BookingRequest;
 use App\Services\BookingService;
-use App\Services\DTO\BookingRequestData;
-use App\Services\DTO\PassengerData;
 use Illuminate\Http\RedirectResponse;
 
 class BookingController extends Controller
