@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\BookingRequest;
+use App\Services\BookingService;
 use App\Services\ContextService;
 use App\Services\DTO\OrderRequestData;
 use App\Services\SearchService;
@@ -17,21 +19,19 @@ class OrderController extends Controller
 
         $data = new OrderRequestData($command, $token);
         $contextId = $contextService->getContextIdByOrder($token);
-        return $contextId? $searchService->sendRequest($contextId, $data) : null;
+        return $contextId ? $searchService->sendRequest($contextId, $data) : null;
     }
 
-    public function displayOrder(Request $request, SearchService $searchService, ContextService $contextService): RedirectResponse
+    public function displayOrder(Request $request, BookingService $bookingService): RedirectResponse
     {
         $token = $request->post('token');
 
-        $data = new OrderRequestData('DISPLAYORDER', $token);
-        $contextId = $contextService->getContextIdByOrder($token);
-        if(!$contextId)
+        $response = $bookingService->displayOrder($token);
+
+        if(!$response || $response['respond']['token'] == '')
         {
             return redirect('/order')->withInput()->withErrors(['error' => 'Заказ не найден. Проверьте корректность токена.']);
         }
-
-        $response = $searchService->sendRequest($contextId, $data);
         return redirect('/order?token='.$token)->with('response', $response);
     }
 }

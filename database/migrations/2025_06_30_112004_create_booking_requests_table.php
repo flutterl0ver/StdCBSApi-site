@@ -16,7 +16,7 @@ return new class extends Migration
             $table->uuid('uid');
             $table->integer('context_id');
             $table->json('errors')->nullable();
-            $table->string('select_request_uid');
+            $table->string('select_request_uid')->nullable();
             $table->json('request')->nullable();
             $table->string('request_token')->nullable();
             $table->json('response')->nullable();

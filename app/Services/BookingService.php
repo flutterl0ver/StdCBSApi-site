@@ -6,6 +6,7 @@ use App\Models\BookingRequest;
 use App\Models\SelectRequest;
 use App\Providers\SearchProvider;
 use App\Services\DTO\BookingRequestData;
+use App\Services\DTO\OrderRequestData;
 
 class BookingService
 {
@@ -14,8 +15,6 @@ class BookingService
         $selectRequest = SelectRequest::select(['context_id', 'request', 'uid'])
             ->where('request_token', $data->getToken())
             ->first();
-
-        if (!$selectRequest) return null;
 
         $flightsGroup = json_decode($selectRequest->request, true)['flightsGroup'];
         $data->setFlightsGroup($flightsGroup);
@@ -45,4 +44,31 @@ class BookingService
 
         return $response;
     }
+
+    public function displayOrder($token): array
+    {
+        $bookingRequest = BookingRequest::where('request_token', $token)->first();
+        if(!$bookingRequest)
+        {
+            $bookingRequest = new BookingRequest();
+            $bookingRequest->request_token = $token;
+            $bookingRequest->context_id = 1; // TODO: УБРАТЬ ЭТОТ КОСТЫЛЬ!!!!!!
+        }
+        if($bookingRequest->response) return json_decode($bookingRequest->response, true);
+
+        $searchService = new SearchService();
+        $request = new OrderRequestData('DISPLAYORDER', $token);
+        $response = $searchService->sendRequest($bookingRequest->context_id, $request);
+        $bookingRequest->response = json_encode($response, JSON_UNESCAPED_UNICODE);
+
+        if($response && $response['respond']['token'] != '') $bookingRequest->save();
+
+        return $response;
+    }
 }
+
+/*
+ * 65515eda321b2765c02259f35e2233b3
+ * a33f84ed363ad40a3265ba6fb6076101
+ * 695990
+ */
