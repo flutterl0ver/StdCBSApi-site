@@ -66,9 +66,3 @@ class BookingService
         return $response;
     }
 }
-
-/*
- * 65515eda321b2765c02259f35e2233b3
- * a33f84ed363ad40a3265ba6fb6076101
- * 695990
- */
