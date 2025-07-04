@@ -17,7 +17,7 @@ class OrderController extends Controller
 
         $data = new OrderRequestData($command, $token);
         $contextId = $contextService->getContextIdByOrder($token);
-        return $contextId? $searchService->search($contextId, $data) : null;
+        return $contextId? $searchService->sendRequest($contextId, $data) : null;
     }
 
     public function displayOrder(Request $request, SearchService $searchService, ContextService $contextService): RedirectResponse
@@ -31,7 +31,7 @@ class OrderController extends Controller
             return redirect('/order')->withInput()->withErrors(['error' => 'Заказ не найден. Проверьте корректность токена.']);
         }
 
-        $response = $searchService->search($contextId, $data);
+        $response = $searchService->sendRequest($contextId, $data);
         return redirect('/order?token='.$token)->with('response', $response);
     }
 }

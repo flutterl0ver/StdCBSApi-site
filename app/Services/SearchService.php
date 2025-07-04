@@ -3,16 +3,17 @@
 namespace App\Services;
 
 use App\Interfaces\IApiRequestData;
+use App\Models\SearchRequest;
 use App\Models\SelectRequest;
 use App\Providers\SearchProvider;
 use App\Services\DTO\FlightRequestData;
+use App\Services\DTO\SearchData;
+use App\Services\DTO\SearchResultData;
 use App\Services\DTO\SelectResultData;
-use Symfony\Component\ErrorHandler\Error\FatalError;
-use function Laravel\Prompts\search;
 
 class SearchService
 {
-    public function search(int $contextId, IApiRequestData $request) : array
+    public function sendRequest(int $contextId, IApiRequestData $request) : array
     {
         $searchProvider = new SearchProvider();
         $response = $searchProvider->sendRequest($contextId, $request);
@@ -23,9 +24,57 @@ class SearchService
         return json_decode($responseJson, true);
     }
 
+    public function search(int $contextId, SearchData $request) : array
+    {
+        $response = $this->sendRequest($contextId, $request);
+
+        $searchRequest = new SearchRequest();
+        if(!$response)
+        {
+            $searchRequest->errors = 'RESPONSE IS NULL';
+        }
+        else if($response['respond']['token'] != '')
+        {
+            $searchRequest->token = $response['respond']['token'];
+        }
+        else
+        {
+            $searchRequest->errors = $response['respond'];
+        }
+        $searchRequest->request = json_encode($request->toArray(), JSON_UNESCAPED_UNICODE);
+        $searchRequest->context_id = $contextId;
+
+        $searchRequest->save();
+
+        return $response;
+    }
+
+    public function searchResult(int $contextId, SearchResultData $request) : ?array
+    {
+        $searchRequest = SearchRequest::where('token', $request->getToken())->first();
+
+        if(!$searchRequest)
+        {
+            $searchRequest = new SearchRequest();
+            $searchRequest->token = $request->getToken();
+            $searchRequest->context_id = $contextId;
+        }
+
+        if(!$searchRequest->response)
+        {
+            $response = $this->sendRequest($contextId, $request);
+            $searchRequest->response = json_encode($response, JSON_UNESCAPED_UNICODE);
+        }
+        else $response = json_decode($searchRequest->response, true);
+
+        $searchRequest->save();
+
+        return $response;
+    }
+
     public function select(int $contextId, FlightRequestData $request) : array
     {
-        $response = $this->search($contextId, $request);
+        $response = $this->sendRequest($contextId, $request);
 
         $selectRequest = new SelectRequest();
         $selectRequest->context_id = $contextId;
@@ -53,13 +102,15 @@ class SearchService
 
     public function selectResult(int $contextId, SelectResultData $request) : ?array
     {
-        $response = $this->search($contextId, $request);
+        $response = $this->sendRequest($contextId, $request);
 
         $selectRequest = SelectRequest::where('request_token', $request->getToken())->first();
-        if(!$selectRequest) return null;
 
-        $selectRequest->response = json_encode($response);
-        $selectRequest->save();
+        if($selectRequest)
+        {
+            $selectRequest->response = json_encode($response);
+            $selectRequest->save();
+        }
 
         return $response;
     }

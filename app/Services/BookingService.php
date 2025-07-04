@@ -9,11 +9,13 @@ use App\Services\DTO\BookingRequestData;
 
 class BookingService
 {
-    public function createBooking(BookingRequestData $data): array
+    public function createBooking(BookingRequestData $data): ?array
     {
         $selectRequest = SelectRequest::select(['context_id', 'request', 'uid'])
             ->where('request_token', $data->getToken())
             ->first();
+
+        if (!$selectRequest) return null;
 
         $flightsGroup = json_decode($selectRequest->request, true)['flightsGroup'];
         $data->setFlightsGroup($flightsGroup);
@@ -27,11 +29,11 @@ class BookingService
         $bookingRequest->status = 0;
         $bookingRequest->select_request_uid = $selectRequest->uid;
 
-        if(!$response)
+        if (!$response)
         {
             $bookingRequest->errors = 'RESPONSE IS NULL';
         }
-        else if($response['respond']['token'] != '')
+        else if ($response['respond']['token'] != '')
         {
             $bookingRequest->request_token = $response['respond']['token'];
         }
@@ -41,6 +43,7 @@ class BookingService
         }
 
         $bookingRequest->save();
+
         return $response;
     }
 }

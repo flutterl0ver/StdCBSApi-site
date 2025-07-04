@@ -73,7 +73,7 @@ class SearchController extends Controller
 
         $data = new SearchResultData($token);
 
-        $response = $searchService->search(CONTEXT_ID, $data);
+        $response = $searchService->searchResult(CONTEXT_ID, $data);
         if (!$response || $response['respond']['token'] == '')
         {
             return redirect('/flights')->withInput()->withErrors(['error' => 'Перелёты не найдены. Проверьте корректность токена.']);
@@ -91,7 +91,7 @@ class SearchController extends Controller
         $command = $data['command'];
         $data = new FlightRequestData($command, $data);
 
-        return $searchService->search(CONTEXT_ID, $data);
+        return $searchService->sendRequest(CONTEXT_ID, $data);
     }
 
     public function select(Request $request, SearchService $searchService) : array
