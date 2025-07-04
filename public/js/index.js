@@ -98,15 +98,21 @@ function SwitchAirports(id, display) {
 
 function SearchAirports(id) {
     document.getElementById('airports_' + id).innerHTML = '';
+    clearTimeout( $(this).data('timer') );
     let search = document.getElementById(id).value;
-    $.ajax({
-        url: '/search-airports',
-        method: 'get',
-        data: { term: search },
-        success: function(data) {
-            ShowAirports(id, data);
-        }
-    });
+
+    let timer = setTimeout(function() {
+        $.ajax({
+            url: '/search-airports',
+            method: 'get',
+            data: { term: search },
+            success: function(data) {
+                ShowAirports(id, data);
+            }
+        });
+    }, 500);
+
+    $(this).data('timer', timer);
 }
 
 function ShowAirports(id, airports) {
