@@ -13,6 +13,8 @@
 
 <body>
     @if (session('response') && session('response')['respond']['token'] != '')
+        <span class="loaderText" id="loaderText">Отправка бронирования...</span>
+        <span class="loader" id="loader"></span>
         <script>
             const response = JSON.parse('{!! json_encode(session('response'), JSON_UNESCAPED_UNICODE) !!}');
             const token = '{{ session('response')['respond']['token'] }}';
@@ -35,7 +37,7 @@
             <div id="upt_content"></div>
         </div>
 
-        <form method="post" class="bigform" action="/make-booking">
+        <form method="post" class="bigform" id="bigform" action="/make-booking" onsubmit="startBooking()">
             @csrf
             <div>
                 <h1>Информация о покупателе</h1><br>

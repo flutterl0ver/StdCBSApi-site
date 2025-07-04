@@ -15,3 +15,12 @@ function EnableEmail(id) {
     document.getElementById('email_refused' + id).checked = false;
     document.getElementById('email_absent' + id).checked = false;
 }
+
+function startBooking()
+{
+    document.getElementById('bigform').style.display = 'none';
+    document.getElementById('table_div').style.display = 'none';
+    document.getElementById('loader').style.display = 'block';
+    document.getElementById('loaderText').style.display = 'block';
+    document.getElementById('header').style.display = 'none';
+}
