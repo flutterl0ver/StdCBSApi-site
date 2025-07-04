@@ -6,13 +6,12 @@ use App\DTO\FlightRequestData;
 use App\DTO\SearchData;
 use App\DTO\SearchResultData;
 use App\DTO\SelectResultData;
+use App\Enums\Context;
 use App\Http\Requests\SearchRequest;
 use App\Services\SearchService;
 use Illuminate\Http\Client\ConnectionException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-
-const CONTEXT_ID = 1;
 
 class SearchController extends Controller
 {
@@ -50,7 +49,7 @@ class SearchController extends Controller
         );
 
         try {
-            $response = $searchService->search(CONTEXT_ID, $data);
+            $response = $searchService->search(Context::StdCbs->value, $data);
         }
         catch (ConnectionException)
         {
@@ -73,7 +72,7 @@ class SearchController extends Controller
 
         $data = new SearchResultData($token);
 
-        $response = $searchService->searchResult(CONTEXT_ID, $data);
+        $response = $searchService->searchResult(Context::StdCbs->value, $data);
         if (!$response || $response['respond']['token'] == '')
         {
             return redirect('/flights')->withInput()->withErrors(['error' => 'Перелёты не найдены. Проверьте корректность токена.']);
@@ -91,7 +90,7 @@ class SearchController extends Controller
         $command = $data['command'];
         $data = new FlightRequestData($command, $data);
 
-        return $searchService->sendRequest(CONTEXT_ID, $data);
+        return $searchService->sendRequest(Context::StdCbs->value, $data);
     }
 
     public function select(Request $request, SearchService $searchService) : array
@@ -102,7 +101,7 @@ class SearchController extends Controller
         unset($data['command']);
         $data = new FlightRequestData($command, $data);
 
-        return $searchService->select(CONTEXT_ID, $data);
+        return $searchService->select(Context::StdCbs->value, $data);
     }
 
     public function selectResult(Request $request, SearchService $searchService) : RedirectResponse
@@ -111,7 +110,7 @@ class SearchController extends Controller
 
         $data = new SelectResultData($token);
 
-        $response = $searchService->selectResult(CONTEXT_ID, $data);
+        $response = $searchService->selectResult(Context::StdCbs->value, $data);
         if(!$response || $response['respond']['token'] == '')
         {
             return redirect('/booking')->withInput()->withErrors(['error' => 'Перелёт не найден. Проверьте корректность токена.']);

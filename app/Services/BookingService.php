@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\DTO\BookingRequestData;
 use App\DTO\OrderRequestData;
+use App\Enums\Context;
 use App\Models\BookingRequest;
 use App\Models\SelectRequest;
 use App\Providers\SearchProvider;
@@ -52,7 +53,7 @@ class BookingService
         {
             $bookingRequest = new BookingRequest();
             $bookingRequest->request_token = $token;
-            $bookingRequest->context_id = 1; // TODO: УБРАТЬ ЭТОТ КОСТЫЛЬ!!!!!!
+            $bookingRequest->context_id = Context::StdCbs->value;
         }
         if($bookingRequest->response) return json_decode($bookingRequest->response, true);
 
