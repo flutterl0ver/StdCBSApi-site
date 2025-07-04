@@ -20,7 +20,7 @@ return new class extends Migration
             $table->json('request')->nullable();
             $table->string('request_token')->nullable();
             $table->json('response')->nullable();
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }

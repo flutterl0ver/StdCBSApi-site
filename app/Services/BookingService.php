@@ -26,7 +26,6 @@ class BookingService
         $bookingRequest = new BookingRequest();
         $bookingRequest->context_id = $selectRequest->context_id;
         $bookingRequest->request = json_encode($data->toArray());
-        $bookingRequest->status = 0;
         $bookingRequest->select_request_uid = $selectRequest->uid;
 
         if (!$response)

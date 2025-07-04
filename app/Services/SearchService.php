@@ -80,7 +80,6 @@ class SearchService
         $selectRequest->context_id = $contextId;
         $selectRequest->search_token = $request->getData()['token'];
         $selectRequest->request = json_encode($request->toArray());
-        $selectRequest->status = 0;
 
         if(!$response)
         {
@@ -102,15 +101,23 @@ class SearchService
 
     public function selectResult(int $contextId, SelectResultData $request) : ?array
     {
-        $response = $this->sendRequest($contextId, $request);
-
         $selectRequest = SelectRequest::where('request_token', $request->getToken())->first();
 
-        if($selectRequest)
+        if(!$selectRequest)
         {
-            $selectRequest->response = json_encode($response);
-            $selectRequest->save();
+            $selectRequest = new SelectRequest();
+            $selectRequest->context_id = $contextId;
+            $selectRequest->request_token = $request->getToken();
         }
+
+        if (!$selectRequest->response)
+        {
+            $response = $this->sendRequest($contextId, $request);
+            $selectRequest->response = json_encode($response, JSON_UNESCAPED_UNICODE);
+        }
+        else $response = json_decode($selectRequest->response, true);
+
+        $selectRequest->save();
 
         return $response;
     }

@@ -16,11 +16,11 @@ return new class extends Migration
             $table->uuid('uid');
             $table->integer('context_id');
             $table->json('errors')->nullable();
-            $table->string('search_token');
+            $table->string('search_token')->nullable();
             $table->json('request')->nullable();
             $table->string('request_token')->nullable();
             $table->json('response')->nullable();
-            $table->integer('status');
+            $table->integer('status')->default(0);
             $table->timestamps();
         });
     }
