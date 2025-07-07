@@ -19,8 +19,16 @@
         </script>
         <h3>Заказ №{{ $response['token'] }}</h3>
         @if ($response['bookingFile']['status'] == 'CANCELLED')
-            <h3 class="cancelled">(отменён)</h3>
+            <h3 class="status" style="color: #FF3535">(отменён)</h3>
         @else
+            @switch ($response['bookingFile']['status'])
+                @case ('BOOKING')
+                    <h3 class="status">(бронируется)</h3>
+                @case ('NEW')
+                    <h3 class="status">(не оплачен)</h3>
+                @case ('ERROR')
+                    <h3 class="status" style="color: #FF3535">(ошибка)</h3>
+            @endswitch
             <span class="loaderText" id="loaderText">Отмена заказа...</span>
             <span class="loader" id="loader"></span>
 
@@ -67,7 +75,8 @@
                 <?php $i++; ?>
             @endforeach
             @if ($response['bookingFile']['status'] != 'CANCELLED')
-                <button class="submit red" onclick="cancelBooking()">Отменить заказ</button><br>
+                <button class="submit red" onclick="cancelBooking()">Отменить заказ</button>
+                <button class="submit">Выписка билетов</button>
             @endif
             <span class="error" id="errorText"></span>
         </div>

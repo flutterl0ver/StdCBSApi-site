@@ -55,15 +55,22 @@ class BookingService
             $bookingRequest->request_token = $token;
             $bookingRequest->context_id = Context::StdCbs->value;
         }
-        if($bookingRequest->response) return json_decode($bookingRequest->response, true);
+        try {
+            $searchService = new SearchService();
+            $request = new OrderRequestData('DISPLAYORDER', $token);
+            $response = $searchService->sendRequest($bookingRequest->context_id, $request);
+            $bookingRequest->response = json_encode($response, JSON_UNESCAPED_UNICODE);
 
-        $searchService = new SearchService();
-        $request = new OrderRequestData('DISPLAYORDER', $token);
-        $response = $searchService->sendRequest($bookingRequest->context_id, $request);
-        $bookingRequest->response = json_encode($response, JSON_UNESCAPED_UNICODE);
+            if($response && $response['respond']['token'] != '') $bookingRequest->save();
 
-        if($response && $response['respond']['token'] != '') $bookingRequest->save();
+            return $response;
+        }
+        catch (\Throwable $e)
+        {
+            $bookingRequest->errors = $e->getMessage();
+            $bookingRequest->save();
 
-        return $response;
+            return json_decode($bookingRequest->response, true);
+        }
     }
 }
