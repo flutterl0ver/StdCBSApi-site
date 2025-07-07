@@ -60,7 +60,8 @@ class SearchController extends Controller
             return redirect('/')->withInput()->withErrors(['other' => 'Что-то пошло не так. Код ошибки: '.$e->getCode()]);
         }
 
-        if (isset($response['respond']) && $response['respond']['token'] != '') {
+        if (isset($response['respond']) && $response['respond']['token'] != '')
+        {
             return redirect('/flights?token=' . $response['respond']['token']);
         }
         return redirect('/')->withInput()->withErrors(['other' => $response['respond']['messages']['message'][0]]);
