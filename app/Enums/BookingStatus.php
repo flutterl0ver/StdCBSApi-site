@@ -2,7 +2,7 @@
 
 namespace App\Enums;
 
-enum Status: int
+enum BookingStatus: int
 {
-
+    //
 }

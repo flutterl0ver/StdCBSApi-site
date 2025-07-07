@@ -100,6 +100,7 @@ function SearchAirports(id) {
     document.getElementById('airports_' + id).innerHTML = '';
     clearTimeout( $(this).data('timer') );
     let search = document.getElementById(id).value;
+    search = search[0].toUpperCase() + search.slice(1).toLowerCase();
 
     let timer = setTimeout(function() {
         $.ajax({

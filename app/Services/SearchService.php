@@ -39,7 +39,7 @@ class SearchService
         }
         else
         {
-            $searchRequest->errors = $response['respond'];
+            $searchRequest->errors = json_encode($response['respond'], JSON_UNESCAPED_UNICODE);
         }
         $searchRequest->request = json_encode($request->toArray(), JSON_UNESCAPED_UNICODE);
         $searchRequest->context_id = $contextId;

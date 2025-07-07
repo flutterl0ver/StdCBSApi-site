@@ -63,7 +63,7 @@ class SearchController extends Controller
         if (isset($response['respond']) && $response['respond']['token'] != '') {
             return redirect('/flights?token=' . $response['respond']['token']);
         }
-        return redirect('/')->withInput();
+        return redirect('/')->withInput()->withErrors(['other' => $response['respond']['messages']['message'][0]]);
     }
 
     public function searchResult(Request $request, SearchService $searchService) : RedirectResponse

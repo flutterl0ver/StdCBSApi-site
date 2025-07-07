@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('search_requests', function (Blueprint $table) {
             $table->id();
-            $table->string('token')->unique();
+            $table->string('token')->nullable();
             $table->integer('context_id');
             $table->json('errors')->nullable();
             $table->json('request');
