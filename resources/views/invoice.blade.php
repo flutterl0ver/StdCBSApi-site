@@ -2,7 +2,13 @@
 
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <title>Квитанция №{{ $token }}{{ request()->query('passenger') }}</title>
+    <?php
+        $token = request()->query('token');
+        $passenger = request()->query('passenger');
+
+        $ticket = $reservation['products']['airTicket'][$passenger];
+    ?>
+    <title>Квитанция №{{ $token }}{{ $passenger }}</title>
     <link rel="stylesheet" href="{{ asset('css/invoice.css') }}">
     <script>console.log(JSON.parse('{!! json_encode($ticket, JSON_UNESCAPED_UNICODE) !!}'))</script>
 </head>
@@ -61,7 +67,7 @@
         </div>
         <div class="right">
             <span style="font-size: 18px">Заказ №{{ $token }}</span><br>
-            Код бронирования: ?
+            Код бронирования: {{ $reservation['recordLocator'] }}
         </div>
     </div><hr>
     <div style="padding: 15px">

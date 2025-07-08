@@ -18,9 +18,10 @@ class InvoiceController extends Controller
         $response = $bookingService->displayOrder($token);
         if(!$response || $response['respond']['token'] == '') return redirect()->back();
 
-        $tickets = $response['respond']['bookingFile']['reservations']['reservation'][0]['products']['airTicket'];
+        $reservation = $response['respond']['bookingFile']['reservations']['reservation'][0];
+        $tickets = $reservation['products']['airTicket'];
         if($passenger >= count($tickets)) return redirect()->back();
 
-        return view('invoice')->with(['ticket' => $tickets[$passenger], 'token' => $token]);
+        return view('invoice')->with(['reservation' => $reservation]);
     }
 }
