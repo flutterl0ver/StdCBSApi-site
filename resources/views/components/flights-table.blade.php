@@ -241,6 +241,7 @@ $i = 0;
                         <button class="select right" onclick="SendSelectRequest({{ $i }})">Отправить запрос выбора</button>
                     @endif
                 </div>
+                <span class="error" id="error{{ $i }}"></span>
             </td>
         </tr>
 
