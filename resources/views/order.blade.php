@@ -13,23 +13,30 @@
 
 <body>
     @if (session('response') && ['token'] != '')
-        <?php $response = session('response')['respond']; ?>
+        <?php
+            $response = session('response')['respond'];
+            $status = $response['bookingFile']['status'];
+        ?>
         <script>
             const token = '{{ $response['token'] }}';
         </script>
         <h3>Заказ №{{ $response['token'] }}</h3>
-        @if ($response['bookingFile']['status'] == 'CANCELLED')
-            <h3 class="status" style="color: #FF3535">(отменён)</h3>
+        @if ($status == 'CANCELLED')
+            <h3 class="status red" id="status">(отменён)</h3>
         @else
-            @switch ($response['bookingFile']['status'])
+            @switch ($status)
                 @case ('BOOKING')
-                    <h3 class="status">(бронируется)</h3>
+                    <h3 class="status" id="status">(бронируется)</h3>
+                    @break
                 @case ('NEW')
-                    <h3 class="status">(не оплачен)</h3>
+                    <h3 class="status" id="status">(не оплачен)</h3>
+                    @break
                 @case ('ERROR')
-                    <h3 class="status" style="color: #FF3535">(ошибка)</h3>
+                    <h3 class="status red" id="status">(ошибка)</h3>
+                    @break
             @endswitch
-            <span class="loaderText" id="loaderText">Отмена заказа...</span>
+            <span class="loaderText" id="loaderTextCancel">Отмена заказа...</span>
+            <span class="loaderText" id="loaderTextPay">Оплата в процессе...</span>
             <span class="loader" id="loader"></span>
 
             <div id="deletedDiv" style="display: none">
@@ -74,9 +81,11 @@
                 </div>
                 <?php $i++; ?>
             @endforeach
-            @if ($response['bookingFile']['status'] != 'CANCELLED')
-                <button class="submit red" onclick="cancelBooking()">Отменить заказ</button>
-                <button class="submit">Выписка билетов</button>
+            @if ($status != 'CANCELLED' && $status != 'ERROR')
+                <button class="submit red" onclick="cancelBooking()" id="cancelBtn">Отменить заказ</button>
+                @if($response['bookingFile'] != "")
+                    <button class="submit" id="payBtn" onclick="payDeposit()">Оплатить ({{ $response['bookingFile']['fares']['fareTotal']['total'] }} ₽)</button>
+                @endif
             @endif
             <span class="error" id="errorText"></span>
         </div>
