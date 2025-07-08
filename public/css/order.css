@@ -95,3 +95,6 @@ div.table {
     width: 80%;
     transition-duration: 0.2s;
 }
+a {
+    font-size: 0.8em;
+}

@@ -15,6 +15,7 @@
     @if (session('response') && ['token'] != '')
         <?php
             $response = session('response')['respond'];
+            $token = $response['token'];
             $status = $response['bookingFile']['status'];
         ?>
         <script>
@@ -76,6 +77,9 @@
                                         else if($absent) echo 'Нет';
                                         else echo strtolower($passenger['email']);
                                         ?></div>
+                        @if ($status == 'CANCELLED')
+                            <br><a href="/invoice?token={{ $token }}&passenger={{ $i }}">Просмотреть маршрутную квитанцию</a>
+                        @endif
                     </div>
                     <hr>
                 </div>

@@ -1,0 +1,47 @@
+html {
+    font-size: 15px;
+    font-family: Raleway, sans-serif;
+}
+div.head {
+    display: flex;
+    flex-direction: row;
+    background-color: dodgerblue;
+    padding: 10px;
+    color: white;
+    height: max-content;
+    font-size: 20px;
+}
+div.head img {
+    aspect-ratio: 1;
+    height: 50px;
+    margin-right: 10px;
+}
+div.column {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+body {
+    width: 800px;
+}
+div.right {
+    font-size: 12px;
+    text-align: right;
+    flex-grow: 1;
+}
+div.row {
+    display: flex;
+    flex-direction: row;
+}
+div.text-top {
+    vertical-align: top;
+}
+th {
+    text-align: left;
+}
+hr.dotted {
+    border-top: dashed black 1px;
+}
+table.cost td {
+    width: 180px;
+}
